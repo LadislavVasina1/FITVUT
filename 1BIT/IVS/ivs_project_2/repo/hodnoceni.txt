@@ -1,0 +1,4 @@
+xvasin11 100 (GUI, dokumentace)
+xvagne10 100 (testy matematických funkcí, instalátor)
+xpoliv06 100 (základní matematické operace, profiling)
+xhajek51 100 (pokročilé matematické funkce, profiling)

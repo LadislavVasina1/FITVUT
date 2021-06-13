@@ -1,0 +1,4 @@
+Program tráví nejvíce času v souboru math_functions.py, kde je nejvíce volaná funkce is_nun(a), která kontroluje jestli je vstupní hodnota číslo nebo není. 
+Tato funkce se používá ve všech našich funkcích a pomocí této funkce kontrolujeme jestli uživatel zadal platné číslo a nebo zadal neplatné číslo - Not a number (NaN). 
+Funkce obsahuje pouze pár řádku a je opravdu jednoduchá a zrychlit by nejspíše nešla. Kde by ovšem šly nejspíše zrychlit výpočty je funkce která počítá odmocninu. 
+Jenomže bychom nemohli používát naše funkce pro výpočet ale museli bychom použít matematickou knihovnu a využít PGO, které by zrychlilo některé části knihovny.  

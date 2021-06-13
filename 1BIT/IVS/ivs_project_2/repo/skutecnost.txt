@@ -1,0 +1,8 @@
+Našemu týmu 4 Exceptions se dle mého názoru dařilo dobře.
+Jelikož jsme s projektem nezačali ihned po zadání, ale až pár týdnů poté, tak jsme byli ke spolu stanoveným termínům lehce skeptičtí.
+Stanovené termíny jsme ale vždy, jen s rezervou např. pár dnů, dodrželi. Komunikace v týmu probíhala neustále, takže když se vyskytl nějaký
+problém, tak byl ihned diskutován a vyřešen. Před začátkem vývoje jsme si stanovili pomocí mockupu jak by kalkulačka měla vypadat a jaké funkce by měla umět.
+Zde jsme oproti původnímu plánu změnili pouze to, že jsme nevytvořili funkci % a nahradili jí funkcí modulo.
+
+
+Tento soubor napsal: Ladislav Vašina (xvasin11) - vedoucí týmu 4 Exceptions

@@ -1,0 +1,52 @@
+Stanovené termíny
+-----------------
+Vašina - 31.3.2021 - základ GUI
+Vágner - 31.3.2021 - testy na základní matematické operace
+Polívka - 31.3.2021 - základní matematické operace
+Hájek - 31.3.2021 - vytvoření prvních pokročilých matematických funkcí
+
+Vašina - 11.4.2021 - dokončení GUI, základy dokumentace
+Vágner - 11.4.2021 - dokončení všech testů, začátek instalátoru
+Polívka - 11.4.2021 - dokončení operací, začátek profilingu
+Hájek - 11.4.2021 - dokončení pokročilých operací, začátek profilingu
+
+Vašina - 23.4.2021 - dokončení dokumentace
+Vágner - 23.4.2021 - dokončení instalátoru
+Polívka - 23.4.2021 - dokončení profilingu
+Hájek - 23.4.2021 - dokončení profilingu
+
+Všichni - 27.4.2021 - kontrola projektu
+
+Vašina - 29.4.2021 - odevzdání potřebných souborů
+
+Všichni - 21.5.2021 - odevzdání souboru o nastalých problémech
+
+Přidělení úkolů
+---------------
+Ladislav Vašina – základ GUI, dokumentace
+Dominik Vágner – testy, instalátor
+Tomáš Polívka – základní mat. operace, profiling
+Vojtěch Hájek – pokročilé matematické operace, profiling
+
+Komunikační kanály
+------------------
+Jako instant messaging platformu využíváme Facebook Messenger. 
+Na této platformě se koná velká část textové komunikace týmu.
+
+Dále pro hlasovou komunikaci využíváme platformu Discord.
+
+Pro kontrolu práce každého člena týmu, využíváme platformu nazvanou Jira (https://www.atlassian.com/software/jira), kde jsou každému členovi přiděleny úkoly dle plánu. 
+Je zde také přehledně vidět odvedená a neodvedená práce na projektu.
+
+Dále pro jednoduchý náhled do deadlinů různých úkolů využíváme sdílený google kalendář.
+
+Pravidla pro komunikaci stanovena nemáme.
+
+
+Zvolený systém pro správu verzí
+-------------------------------
+Jako systém pro správu verzí je zvolen GIT.
+Repozitář bude uložen na serveru ivs.fit.vutbr.cz
+ve složce ivs-proj2/4_Exceptions/repo
+
+
