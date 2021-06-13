@@ -1,0 +1,463 @@
+\hypertarget{math__functions_8py}{}\doxysection{math\+\_\+functions.\+py File Reference}
+\label{math__functions_8py}\index{math\_functions.py@{math\_functions.py}}
+
+
+library of mathematical functions  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{math__functions_8py_a87d0bdabba44263794f93a92c53542ee}{math\+\_\+functions.\+is\+\_\+nan}} (num)
+\begin{DoxyCompactList}\small\item\em function is\+\_\+nan(num) returns true if value is not a number returns false if value is a number ~\newline
+ \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_aa3eafeeee850a79595a58f79765bb49d}{math\+\_\+functions.\+add}} (a, b)
+\begin{DoxyCompactList}\small\item\em function add(a,b) add two numbers and returns result if one of them is not a number returns Value\+Error \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_a0fb1f491b179b15e62cf6f49bd2557e6}{math\+\_\+functions.\+subtract}} (a, b)
+\begin{DoxyCompactList}\small\item\em function subtract(a,b) subtracts two numbers and returns the result if one of them is not a number returns Value\+Error \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_a708dbb4740c7c9c7331347de033fddc9}{math\+\_\+functions.\+multiply}} (a, b)
+\begin{DoxyCompactList}\small\item\em function multiply(a,b) multiplies two numbers and returns result if one of them is not a number returns Value\+Error \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_a14b7b3bcfd15d2314de1220ece92a9de}{math\+\_\+functions.\+divide}} (a, b)
+\begin{DoxyCompactList}\small\item\em function divide(a,b) divides two numbers and returns the result if second number is equal to 0 returns Zero\+Division\+Error if one of them is not a number returns Value\+Error \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_a78e7dcda644f50f1d02ba4b148edba0d}{math\+\_\+functions.\+scientific}} (a)
+\begin{DoxyCompactList}\small\item\em function scientific if a number\textquotesingle{}s lenght is over 32 chars, return scientific number else return normal a number \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_ad18494bff6c08c57c7de2adf8eb0480e}{math\+\_\+functions.\+factorial}} (a)
+\begin{DoxyCompactList}\small\item\em function factorial makes factorial from number \textquotesingle{}a\textquotesingle{} and returns result if number \textquotesingle{}a\textquotesingle{} is lower than zero, returns Value\+Error if overflow, return Overflow\+Error if its not a number, return Value\+Error \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_aa9f01fa0eabbb00a287700dd45ea5427}{math\+\_\+functions.\+exponentiation}} (a, n)
+\begin{DoxyCompactList}\small\item\em function exponentiation exponentiation of number \textquotesingle{}a\textquotesingle{} to number \textquotesingle{}n\textquotesingle{}, returns result if number \textquotesingle{}n\textquotesingle{} is lower than zero, return Value\+Error if overflow, return Overflow\+Error if its not a number, return Value\+Error \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_a50ac5f83e987cd3bd8cb7b72d27c15a8}{math\+\_\+functions.\+root}} (x, y)
+\begin{DoxyCompactList}\small\item\em function root root of number \textquotesingle{}a\textquotesingle{} to number \textquotesingle{}n\textquotesingle{}, returns result if number \textquotesingle{}a\textquotesingle{} is lower than zero, return Value\+Error if \textquotesingle{}n\textquotesingle{} equals zero, returns Zero\+Division\+Error if its not a number, returns Value\+Error \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_a5a6dad2d3cddac2e878904d0f914281f}{math\+\_\+functions.\+int2bin}} (a)
+\begin{DoxyCompactList}\small\item\em function int2bin Integer number \textquotesingle{}a\textquotesingle{} turns into bin format, return a in bin number \textquotesingle{}a\textquotesingle{} is divided by two, if modulo = 0, writes into string 0 number \textquotesingle{}a\textquotesingle{} is divided by two, if modulo dont equals 0, writes into string 1 if number \textquotesingle{}a\textquotesingle{} is float, return Value\+Error if number \textquotesingle{}a\textquotesingle{} is not Integer \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{math__functions_8py_accb19c87e355f4416bd41bd97f492e3d}{math\+\_\+functions.\+modulo}} (a, b)
+\begin{DoxyCompactList}\small\item\em function modulo makes modulo from number \textquotesingle{}a\textquotesingle{} and number \textquotesingle{}b\textquotesingle{}, returns result if number \textquotesingle{}b\textquotesingle{} equals zero, returns Zero\+Division\+Error if number \textquotesingle{}a\textquotesingle{} is not number, returns Value\+Error \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+library of mathematical functions 
+
+\begin{DoxyAuthor}{Authors}
+Tomáš Polívka (xpoliv06), Vojtěch Hájek (xhajek51) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+13-\/04-\/2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{math__functions_8py_aa3eafeeee850a79595a58f79765bb49d}\label{math__functions_8py_aa3eafeeee850a79595a58f79765bb49d}} 
+\index{math\_functions.py@{math\_functions.py}!add@{add}}
+\index{add@{add}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+add (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+
+
+function add(a,b) add two numbers and returns result if one of them is not a number returns Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+{\em b} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 40 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \textcolor{keyword}{def }add(a, b):}
+\DoxyCodeLine{41     \textcolor{keywordflow}{if} is\_nan(a) \textcolor{keywordflow}{or} is\_nan(b):}
+\DoxyCodeLine{42         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{43     result = a + b}
+\DoxyCodeLine{44     \textcolor{keywordflow}{if} is\_nan(result):}
+\DoxyCodeLine{45         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{46     \textcolor{keywordflow}{else}:    }
+\DoxyCodeLine{47         \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{48     }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_a14b7b3bcfd15d2314de1220ece92a9de}\label{math__functions_8py_a14b7b3bcfd15d2314de1220ece92a9de}} 
+\index{math\_functions.py@{math\_functions.py}!divide@{divide}}
+\index{divide@{divide}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{divide()}{divide()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+divide (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+
+
+function divide(a,b) divides two numbers and returns the result if second number is equal to 0 returns Zero\+Division\+Error if one of them is not a number returns Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+{\em b} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 83 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83 \textcolor{keyword}{def }divide(a, b):}
+\DoxyCodeLine{84     \textcolor{keywordflow}{if} b == 0: }
+\DoxyCodeLine{85         \textcolor{keywordflow}{raise} ZeroDivisionError}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{keywordflow}{if} is\_nan(a) \textcolor{keywordflow}{or} is\_nan(b):}
+\DoxyCodeLine{88         \textcolor{keywordflow}{raise} ValueError        }
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90     result = a/b}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \textcolor{keywordflow}{if} is\_nan(result):}
+\DoxyCodeLine{93         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{94     \textcolor{keywordflow}{else}: }
+\DoxyCodeLine{95         \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{96 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_aa9f01fa0eabbb00a287700dd45ea5427}\label{math__functions_8py_aa9f01fa0eabbb00a287700dd45ea5427}} 
+\index{math\_functions.py@{math\_functions.py}!exponentiation@{exponentiation}}
+\index{exponentiation@{exponentiation}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{exponentiation()}{exponentiation()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+exponentiation (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+function exponentiation exponentiation of number \textquotesingle{}a\textquotesingle{} to number \textquotesingle{}n\textquotesingle{}, returns result if number \textquotesingle{}n\textquotesingle{} is lower than zero, return Value\+Error if overflow, return Overflow\+Error if its not a number, return Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+{\em n} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 141 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{141 \textcolor{keyword}{def }exponentiation(a, n):}
+\DoxyCodeLine{142     \textcolor{keywordflow}{if} is\_nan(a) \textcolor{keywordflow}{and} n == 0:}
+\DoxyCodeLine{143         \textcolor{keywordflow}{return} 1}
+\DoxyCodeLine{144     \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{145         \textcolor{keywordflow}{if} is\_nan(a):}
+\DoxyCodeLine{146             \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{147         \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{148             \textcolor{keywordflow}{if} n == 0:}
+\DoxyCodeLine{149                 \textcolor{keywordflow}{return} 1}
+\DoxyCodeLine{150             \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{151                 \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{152                     \textcolor{keywordflow}{if} n<0:}
+\DoxyCodeLine{153                         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{154                     \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{155                         a = float(a)}
+\DoxyCodeLine{156                         result= float(a ** int(n))}
+\DoxyCodeLine{157                         \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{158                 \textcolor{keywordflow}{except} OverflowError:}
+\DoxyCodeLine{159                     \textcolor{keywordflow}{raise} OverflowError       }
+\DoxyCodeLine{160 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_ad18494bff6c08c57c7de2adf8eb0480e}\label{math__functions_8py_ad18494bff6c08c57c7de2adf8eb0480e}} 
+\index{math\_functions.py@{math\_functions.py}!factorial@{factorial}}
+\index{factorial@{factorial}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{factorial()}{factorial()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+factorial (\begin{DoxyParamCaption}\item[{}]{a }\end{DoxyParamCaption})}
+
+
+
+function factorial makes factorial from number \textquotesingle{}a\textquotesingle{} and returns result if number \textquotesingle{}a\textquotesingle{} is lower than zero, returns Value\+Error if overflow, return Overflow\+Error if its not a number, return Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 115 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{115 \textcolor{keyword}{def }factorial(a):}
+\DoxyCodeLine{116     \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{117         type(a) == int}
+\DoxyCodeLine{118         result = 1}
+\DoxyCodeLine{119         \textcolor{keywordflow}{if} a == 0:}
+\DoxyCodeLine{120             \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{121         \textcolor{keywordflow}{elif} a<0:}
+\DoxyCodeLine{122             \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{123         \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{124             i=1}
+\DoxyCodeLine{125             \textcolor{keywordflow}{while} i<=a:}
+\DoxyCodeLine{126                 result=float(result * i)}
+\DoxyCodeLine{127                 i+=1}
+\DoxyCodeLine{128             \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{129     \textcolor{keywordflow}{except} OverflowError:}
+\DoxyCodeLine{130         \textcolor{keywordflow}{raise} OverflowError}
+\DoxyCodeLine{131     \textcolor{keywordflow}{except} ValueError:}
+\DoxyCodeLine{132         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{133 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_a5a6dad2d3cddac2e878904d0f914281f}\label{math__functions_8py_a5a6dad2d3cddac2e878904d0f914281f}} 
+\index{math\_functions.py@{math\_functions.py}!int2bin@{int2bin}}
+\index{int2bin@{int2bin}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{int2bin()}{int2bin()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+int2bin (\begin{DoxyParamCaption}\item[{}]{a }\end{DoxyParamCaption})}
+
+
+
+function int2bin Integer number \textquotesingle{}a\textquotesingle{} turns into bin format, return a in bin number \textquotesingle{}a\textquotesingle{} is divided by two, if modulo = 0, writes into string 0 number \textquotesingle{}a\textquotesingle{} is divided by two, if modulo dont equals 0, writes into string 1 if number \textquotesingle{}a\textquotesingle{} is float, return Value\+Error if number \textquotesingle{}a\textquotesingle{} is not Integer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 193 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{193 \textcolor{keyword}{def }int2bin(a):}
+\DoxyCodeLine{194     \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{195         type(a) == int}
+\DoxyCodeLine{196         \textcolor{keywordflow}{if} type(a) == float:}
+\DoxyCodeLine{197             \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{198         i=int(a)}
+\DoxyCodeLine{199         result=\textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{200         \textcolor{keywordflow}{if} a == 0:}
+\DoxyCodeLine{201             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}0b0"{}}}
+\DoxyCodeLine{202         \textcolor{keywordflow}{if} a <0:}
+\DoxyCodeLine{203             i=-\/i}
+\DoxyCodeLine{204         \textcolor{keywordflow}{while} i>0:}
+\DoxyCodeLine{205             j=int(i \% 2)}
+\DoxyCodeLine{206             i=int(i // 2)}
+\DoxyCodeLine{207             \textcolor{keywordflow}{if} j==0:}
+\DoxyCodeLine{208                 result= \textcolor{stringliteral}{"{}0"{}} + result}
+\DoxyCodeLine{209             \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{210                 result= \textcolor{stringliteral}{"{}1"{}} + result}
+\DoxyCodeLine{211         \textcolor{keywordflow}{if} a<0:}
+\DoxyCodeLine{212             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}-\/0b"{}} + result}
+\DoxyCodeLine{213         \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{214             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}0b"{}} + result}
+\DoxyCodeLine{215     \textcolor{keywordflow}{except} ValueError:}
+\DoxyCodeLine{216         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{217 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_a87d0bdabba44263794f93a92c53542ee}\label{math__functions_8py_a87d0bdabba44263794f93a92c53542ee}} 
+\index{math\_functions.py@{math\_functions.py}!is\_nan@{is\_nan}}
+\index{is\_nan@{is\_nan}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{is\_nan()}{is\_nan()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+is\+\_\+nan (\begin{DoxyParamCaption}\item[{}]{num }\end{DoxyParamCaption})}
+
+
+
+function is\+\_\+nan(num) returns true if value is not a number returns false if value is a number ~\newline
+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 28 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28 \textcolor{keyword}{def }is\_nan(num):}
+\DoxyCodeLine{29     \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{30         float(num)}
+\DoxyCodeLine{31         \textcolor{keywordflow}{return} num != num}
+\DoxyCodeLine{32     \textcolor{keywordflow}{except} ValueError:}
+\DoxyCodeLine{33         \textcolor{keywordflow}{return} \textcolor{keyword}{True}}
+\DoxyCodeLine{34 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_accb19c87e355f4416bd41bd97f492e3d}\label{math__functions_8py_accb19c87e355f4416bd41bd97f492e3d}} 
+\index{math\_functions.py@{math\_functions.py}!modulo@{modulo}}
+\index{modulo@{modulo}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{modulo()}{modulo()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+modulo (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+
+
+function modulo makes modulo from number \textquotesingle{}a\textquotesingle{} and number \textquotesingle{}b\textquotesingle{}, returns result if number \textquotesingle{}b\textquotesingle{} equals zero, returns Zero\+Division\+Error if number \textquotesingle{}a\textquotesingle{} is not number, returns Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+{\em b} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 224 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{224 \textcolor{keyword}{def }modulo(a, b):}
+\DoxyCodeLine{225     \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{226         type(a) == int \textcolor{keywordflow}{or} float}
+\DoxyCodeLine{227         type(b) == int \textcolor{keywordflow}{or} float}
+\DoxyCodeLine{228         result= a \% b}
+\DoxyCodeLine{229         \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{230     \textcolor{keywordflow}{except} ZeroDivisionError:}
+\DoxyCodeLine{231         \textcolor{keywordflow}{raise} ZeroDivisionError}
+\DoxyCodeLine{232     \textcolor{keywordflow}{except} ValueError:}
+\DoxyCodeLine{233         \textcolor{keywordflow}{raise} ValueError}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_a708dbb4740c7c9c7331347de033fddc9}\label{math__functions_8py_a708dbb4740c7c9c7331347de033fddc9}} 
+\index{math\_functions.py@{math\_functions.py}!multiply@{multiply}}
+\index{multiply@{multiply}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{multiply()}{multiply()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+multiply (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+
+
+function multiply(a,b) multiplies two numbers and returns result if one of them is not a number returns Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+{\em b} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 68 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{68 \textcolor{keyword}{def }multiply(a, b):}
+\DoxyCodeLine{69     \textcolor{keywordflow}{if} is\_nan(a) \textcolor{keywordflow}{or} is\_nan(b):}
+\DoxyCodeLine{70         \textcolor{keywordflow}{raise} ValueError    }
+\DoxyCodeLine{71     result = a * b}
+\DoxyCodeLine{72     \textcolor{keywordflow}{if} is\_nan(result):}
+\DoxyCodeLine{73         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{74     \textcolor{keywordflow}{else}:    }
+\DoxyCodeLine{75         \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{76     }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_a50ac5f83e987cd3bd8cb7b72d27c15a8}\label{math__functions_8py_a50ac5f83e987cd3bd8cb7b72d27c15a8}} 
+\index{math\_functions.py@{math\_functions.py}!root@{root}}
+\index{root@{root}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{root()}{root()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+root (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+
+
+function root root of number \textquotesingle{}a\textquotesingle{} to number \textquotesingle{}n\textquotesingle{}, returns result if number \textquotesingle{}a\textquotesingle{} is lower than zero, return Value\+Error if \textquotesingle{}n\textquotesingle{} equals zero, returns Zero\+Division\+Error if its not a number, returns Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+{\em n} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 168 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168 \textcolor{keyword}{def }root(x, y):}
+\DoxyCodeLine{169     \textcolor{keywordflow}{if} is\_nan(x) \textcolor{keywordflow}{or} is\_nan(y):}
+\DoxyCodeLine{170         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{171     \textcolor{keywordflow}{else}:    }
+\DoxyCodeLine{172         \textcolor{keywordflow}{if} y == 0:}
+\DoxyCodeLine{173             \textcolor{keywordflow}{raise} ZeroDivisionError}
+\DoxyCodeLine{174         \textcolor{keywordflow}{else}:    }
+\DoxyCodeLine{175             \textcolor{keywordflow}{if} x == 0 \textcolor{keywordflow}{and} y < 0:}
+\DoxyCodeLine{176                 \textcolor{keywordflow}{raise} ZeroDivisionError}
+\DoxyCodeLine{177             \textcolor{keywordflow}{else}:        }
+\DoxyCodeLine{178                 \textcolor{keywordflow}{if} x < 0 \textcolor{keywordflow}{and} y \% 2 == 0:}
+\DoxyCodeLine{179                     \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{180                 \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{181                     \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{182                         result = x ** float(1 / y)    }
+\DoxyCodeLine{183                         \textcolor{keywordflow}{return} result }
+\DoxyCodeLine{184                     \textcolor{keywordflow}{except} OverflowError:}
+\DoxyCodeLine{185                         \textcolor{keywordflow}{raise} OverflowError    }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_a78e7dcda644f50f1d02ba4b148edba0d}\label{math__functions_8py_a78e7dcda644f50f1d02ba4b148edba0d}} 
+\index{math\_functions.py@{math\_functions.py}!scientific@{scientific}}
+\index{scientific@{scientific}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{scientific()}{scientific()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+scientific (\begin{DoxyParamCaption}\item[{}]{a }\end{DoxyParamCaption})}
+
+
+
+function scientific if a number\textquotesingle{}s lenght is over 32 chars, return scientific number else return normal a number 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 101 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{101 \textcolor{keyword}{def }scientific(a):}
+\DoxyCodeLine{102     lenght=len(str(a))}
+\DoxyCodeLine{103     \textcolor{keywordflow}{if} lenght>=32:}
+\DoxyCodeLine{104         formatResult = format(a, \textcolor{stringliteral}{"{}.15e"{}})}
+\DoxyCodeLine{105         \textcolor{keywordflow}{return} formatResult}
+\DoxyCodeLine{106     \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{107         \textcolor{keywordflow}{return} a}
+\DoxyCodeLine{108 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{math__functions_8py_a0fb1f491b179b15e62cf6f49bd2557e6}\label{math__functions_8py_a0fb1f491b179b15e62cf6f49bd2557e6}} 
+\index{math\_functions.py@{math\_functions.py}!subtract@{subtract}}
+\index{subtract@{subtract}!math\_functions.py@{math\_functions.py}}
+\doxysubsubsection{\texorpdfstring{subtract()}{subtract()}}
+{\footnotesize\ttfamily def math\+\_\+functions.\+subtract (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+
+
+function subtract(a,b) subtracts two numbers and returns the result if one of them is not a number returns Value\+Error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & number \\
+\hline
+{\em b} & number \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 54 of file math\+\_\+functions.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54 \textcolor{keyword}{def }subtract(a, b):}
+\DoxyCodeLine{55     \textcolor{keywordflow}{if} is\_nan(a) \textcolor{keywordflow}{or} is\_nan(b):}
+\DoxyCodeLine{56         \textcolor{keywordflow}{raise} ValueError    }
+\DoxyCodeLine{57     result = a -\/ b}
+\DoxyCodeLine{58     \textcolor{keywordflow}{if} is\_nan(result):}
+\DoxyCodeLine{59         \textcolor{keywordflow}{raise} ValueError}
+\DoxyCodeLine{60     \textcolor{keywordflow}{else}:    }
+\DoxyCodeLine{61         \textcolor{keywordflow}{return} result}
+\DoxyCodeLine{62     }
+
+\end{DoxyCode}

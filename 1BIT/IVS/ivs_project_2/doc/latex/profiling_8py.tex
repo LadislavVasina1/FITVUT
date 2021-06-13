@@ -1,0 +1,74 @@
+\hypertarget{profiling_8py}{}\doxysection{profiling.\+py File Reference}
+\label{profiling_8py}\index{profiling.py@{profiling.py}}
+
+
+profiling  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{profiling_8py_a06066a6476839e4dc509f281560502e8}{profiling.\+profile\+\_\+math}} (values)
+\begin{DoxyCompactList}\small\item\em function profile\+\_\+math prints rstandard deviation \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{profiling_8py_a1709b666df4d9232e803f038133062a2}\label{profiling_8py_a1709b666df4d9232e803f038133062a2}} 
+{\bfseries profiling.\+inp} = input()
+\item 
+\mbox{\Hypertarget{profiling_8py_a82fc19585fa0975b85d1069d353acd3f}\label{profiling_8py_a82fc19585fa0975b85d1069d353acd3f}} 
+{\bfseries profiling.\+seperate\+\_\+input} = re.\+findall(r\char`\"{}\mbox{[}-\/+\mbox{]}?\textbackslash{}d$\ast$\textbackslash{}.\textbackslash{}d+$\vert$\mbox{[}+-\/\mbox{]}?\textbackslash{}d+\char`\"{}, inp)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+profiling 
+
+\begin{DoxyAuthor}{Authors}
+Tomáš Polívka (xpoliv06), Vojtěch Hájek (xhajek51) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+23-\/04-\/2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{profiling_8py_a06066a6476839e4dc509f281560502e8}\label{profiling_8py_a06066a6476839e4dc509f281560502e8}} 
+\index{profiling.py@{profiling.py}!profile\_math@{profile\_math}}
+\index{profile\_math@{profile\_math}!profiling.py@{profiling.py}}
+\doxysubsubsection{\texorpdfstring{profile\_math()}{profile\_math()}}
+{\footnotesize\ttfamily def profiling.\+profile\+\_\+math (\begin{DoxyParamCaption}\item[{}]{values }\end{DoxyParamCaption})}
+
+
+
+function profile\+\_\+math prints rstandard deviation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & as array of numbers \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 31 of file profiling.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31 \textcolor{keyword}{def }profile\_math(values):}
+\DoxyCodeLine{32     sum = 0}
+\DoxyCodeLine{33     sum1 = 0}
+\DoxyCodeLine{34     x = len(values) }
+\DoxyCodeLine{35     \textcolor{comment}{\# Reading from the file}}
+\DoxyCodeLine{36     \textcolor{keywordflow}{for} value \textcolor{keywordflow}{in} values:}
+\DoxyCodeLine{37         sum = m.add(sum, float(value))}
+\DoxyCodeLine{38     }
+\DoxyCodeLine{39     sum = m.divide(sum, x)    }
+\DoxyCodeLine{40     }
+\DoxyCodeLine{41     \textcolor{keywordflow}{for} value \textcolor{keywordflow}{in} values:}
+\DoxyCodeLine{42         sum1 = m.add(sum1, m.exponentiation(m.subtract(float(value),sum), 2))}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     result = m.root(m.divide(sum1, x),2)}
+\DoxyCodeLine{45     print(result)}
+\DoxyCodeLine{46 }
+
+\end{DoxyCode}

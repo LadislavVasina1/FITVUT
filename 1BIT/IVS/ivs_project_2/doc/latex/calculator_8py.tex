@@ -1,0 +1,314 @@
+\hypertarget{calculator_8py}{}\doxysection{calculator.\+py File Reference}
+\label{calculator_8py}\index{calculator.py@{calculator.py}}
+
+
+Python file generating GUI and handling events associated with GUI.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{calculator_8py_ac3bffe481f0b7dfa84f0f6450b3baaa8}{calculator.\+click}} (number)
+\begin{DoxyCompactList}\small\item\em click function inserts given number to the Entry field \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_add79650bc05d6631b829cbfff7bcabe4}\label{calculator_8py_add79650bc05d6631b829cbfff7bcabe4}} 
+def \mbox{\hyperlink{calculator_8py_add79650bc05d6631b829cbfff7bcabe4}{calculator.\+clear}} ()
+\begin{DoxyCompactList}\small\item\em clear function deletes everything in the Entry field \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_a9e2c3a063928883e256a09c6367c0e8e}\label{calculator_8py_a9e2c3a063928883e256a09c6367c0e8e}} 
+def \mbox{\hyperlink{calculator_8py_a9e2c3a063928883e256a09c6367c0e8e}{calculator.\+remove\+\_\+last}} ()
+\begin{DoxyCompactList}\small\item\em remove\+\_\+last function removes last character from current expession typed in the Entry field \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{calculator_8py_a820a14e2a521283bd35f41fdeb0aa7f0}{calculator.\+output}} (result)
+\begin{DoxyCompactList}\small\item\em output function outputs result to the Entry field \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{calculator_8py_ac3f8f2d61edb9ccaf7dd9416c87e30e1}{calculator.\+equal}} ()
+\begin{DoxyCompactList}\small\item\em function equal saves math expression to the \textquotesingle{}expression\textquotesingle{} variable and calls input function also deletes the Entry field \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{calculator_8py_a52f66128b3fd0e079400905b8ebe14b3}{calculator.\+keyboard\+\_\+entry}} (event)
+\begin{DoxyCompactList}\small\item\em keyboard\+\_\+entry function handles enter keyboard event and calls \textquotesingle{}equal\textquotesingle{} function \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_aed334fa5b20f7626b02ba1edd2bc4131}\label{calculator_8py_aed334fa5b20f7626b02ba1edd2bc4131}} 
+def \mbox{\hyperlink{calculator_8py_aed334fa5b20f7626b02ba1edd2bc4131}{calculator.\+show\+\_\+about}} ()
+\begin{DoxyCompactList}\small\item\em This function shows about window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_a06d1c30c7c62e1dc3408e093eb2dae9f}\label{calculator_8py_a06d1c30c7c62e1dc3408e093eb2dae9f}} 
+def \mbox{\hyperlink{calculator_8py_a06d1c30c7c62e1dc3408e093eb2dae9f}{calculator.\+show\+\_\+help}} ()
+\begin{DoxyCompactList}\small\item\em This function shows help. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{calculator_8py_a2636da1e422b2c934583c500ed50fbd6}\label{calculator_8py_a2636da1e422b2c934583c500ed50fbd6}} 
+\mbox{\hyperlink{calculator_8py_a2636da1e422b2c934583c500ed50fbd6}{calculator.\+root}} = Tk()
+\begin{DoxyCompactList}\small\item\em Main window that is displayed to the user is saved in \textquotesingle{}root\textquotesingle{} variable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_ab780a84755be2e504256ffb025c83c53}\label{calculator_8py_ab780a84755be2e504256ffb025c83c53}} 
+\mbox{\hyperlink{calculator_8py_ab780a84755be2e504256ffb025c83c53}{calculator.\+background}}
+\begin{DoxyCompactList}\small\item\em Configuring window properties. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_a72acca4fe8167b2174ccbc31bbd15009}\label{calculator_8py_a72acca4fe8167b2174ccbc31bbd15009}} 
+\mbox{\hyperlink{calculator_8py_a72acca4fe8167b2174ccbc31bbd15009}{calculator.\+weight}}
+\begin{DoxyCompactList}\small\item\em Setting weight to rows and colums so they can be responsive. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_a3eb68c0568af064f301912f4e1d1f9f2}\label{calculator_8py_a3eb68c0568af064f301912f4e1d1f9f2}} 
+\mbox{\hyperlink{calculator_8py_a3eb68c0568af064f301912f4e1d1f9f2}{calculator.\+e}} = Entry(root, width=80, bg=\char`\"{}black\char`\"{}, fg=\char`\"{}white\char`\"{}, font=\textquotesingle{}sans 15 bold\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em Main input field is saved in \textquotesingle{}e\textquotesingle{} varible. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_abfab3025898b83fbaffafee524fc34be}\label{calculator_8py_abfab3025898b83fbaffafee524fc34be}} 
+\mbox{\hyperlink{calculator_8py_abfab3025898b83fbaffafee524fc34be}{calculator.\+row}}
+\begin{DoxyCompactList}\small\item\em Puting buttons on the screen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_aa56e8f5bd67b5e18be550f43eb07be0e}\label{calculator_8py_aa56e8f5bd67b5e18be550f43eb07be0e}} 
+{\bfseries calculator.\+column}
+\item 
+\mbox{\Hypertarget{calculator_8py_a031667fb1b9d5365fe2a8bd5ce23e486}\label{calculator_8py_a031667fb1b9d5365fe2a8bd5ce23e486}} 
+{\bfseries calculator.\+columnspan}
+\item 
+\mbox{\Hypertarget{calculator_8py_ab9e8f719614928f8f026c24992f7b390}\label{calculator_8py_ab9e8f719614928f8f026c24992f7b390}} 
+{\bfseries calculator.\+padx}
+\item 
+\mbox{\Hypertarget{calculator_8py_ae844954a81cab3d769e49269a10fc639}\label{calculator_8py_ae844954a81cab3d769e49269a10fc639}} 
+{\bfseries calculator.\+pady}
+\item 
+\mbox{\Hypertarget{calculator_8py_af101f948bd8a70aad75ad68cafa09cda}\label{calculator_8py_af101f948bd8a70aad75ad68cafa09cda}} 
+{\bfseries calculator.\+sticky}
+\item 
+\mbox{\Hypertarget{calculator_8py_a3a0abe4cf00e9a659d1b79cb5d367e32}\label{calculator_8py_a3a0abe4cf00e9a659d1b79cb5d367e32}} 
+\mbox{\hyperlink{calculator_8py_a3a0abe4cf00e9a659d1b79cb5d367e32}{calculator.\+btn\+\_\+style}} = ttk.\+Style()
+\begin{DoxyCompactList}\small\item\em Calculator buttons styling. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_aeef6cbf03fc0dca42c54af3ff73c9f69}\label{calculator_8py_aeef6cbf03fc0dca42c54af3ff73c9f69}} 
+{\bfseries calculator.\+borderwidth}
+\item 
+\mbox{\Hypertarget{calculator_8py_a0156ab576ae6ff0bd037358e5a9684a5}\label{calculator_8py_a0156ab576ae6ff0bd037358e5a9684a5}} 
+{\bfseries calculator.\+foreground}
+\item 
+\mbox{\Hypertarget{calculator_8py_acbf208155e087f768304638efb69574d}\label{calculator_8py_acbf208155e087f768304638efb69574d}} 
+{\bfseries calculator.\+font}
+\item 
+\mbox{\Hypertarget{calculator_8py_a72e6babf70db40e15f7d533da8a88960}\label{calculator_8py_a72e6babf70db40e15f7d533da8a88960}} 
+\mbox{\hyperlink{calculator_8py_a72e6babf70db40e15f7d533da8a88960}{calculator.\+about}}
+\begin{DoxyCompactList}\small\item\em Creating content of about section. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_acbe541016a7b11d24f1be629575140d7}\label{calculator_8py_acbe541016a7b11d24f1be629575140d7}} 
+{\bfseries calculator.\+text}
+\item 
+\mbox{\Hypertarget{calculator_8py_af8754d0955110af785ebc5ec7462b04b}\label{calculator_8py_af8754d0955110af785ebc5ec7462b04b}} 
+\mbox{\hyperlink{calculator_8py_af8754d0955110af785ebc5ec7462b04b}{calculator.\+help\+\_\+window}}
+\begin{DoxyCompactList}\small\item\em Creating content of help section ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_a37d611bc2784434d0ce46280bae8a7ae}\label{calculator_8py_a37d611bc2784434d0ce46280bae8a7ae}} 
+\mbox{\hyperlink{calculator_8py_a37d611bc2784434d0ce46280bae8a7ae}{calculator.\+menubar}} = Menu(root)
+\begin{DoxyCompactList}\small\item\em Creating menubar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_a73c769a2e14c9a0a3128ddfdcd475490}\label{calculator_8py_a73c769a2e14c9a0a3128ddfdcd475490}} 
+{\bfseries calculator.\+helpmenu} = Menu(menubar, tearoff=0)
+\item 
+\mbox{\Hypertarget{calculator_8py_a1bfe603232d341643169925052fd1be5}\label{calculator_8py_a1bfe603232d341643169925052fd1be5}} 
+{\bfseries calculator.\+label}
+\item 
+\mbox{\Hypertarget{calculator_8py_a5b5a2ab869d3fd90a8320f7d7c198653}\label{calculator_8py_a5b5a2ab869d3fd90a8320f7d7c198653}} 
+{\bfseries calculator.\+command}
+\item 
+\mbox{\Hypertarget{calculator_8py_a23e73ee98d6da1b3bd557df388e1c3ca}\label{calculator_8py_a23e73ee98d6da1b3bd557df388e1c3ca}} 
+{\bfseries calculator.\+menu}
+\end{DoxyCompactItemize}
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{calculator_8py_a2dcb71731199fad9e494d7ea79a38484}\label{calculator_8py_a2dcb71731199fad9e494d7ea79a38484}} 
+\mbox{\hyperlink{calculator_8py_a2dcb71731199fad9e494d7ea79a38484}{calculator.\+one\+\_\+btn}} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}1\char`\"{}, command=lambda\+: click(1))
+\begin{DoxyCompactList}\small\item\em ~\newline
+ Defining buttons \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{calculator_8py_af3ef3c40306acba89f87d3017a0052f3}\label{calculator_8py_af3ef3c40306acba89f87d3017a0052f3}} 
+{\bfseries calculator.\+two\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}2\char`\"{}, command=lambda\+: click(2))
+\item 
+\mbox{\Hypertarget{calculator_8py_aed5a82525704f0623e4f792de0ddf225}\label{calculator_8py_aed5a82525704f0623e4f792de0ddf225}} 
+{\bfseries calculator.\+three\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}3\char`\"{}, command=lambda\+: click(3))
+\item 
+\mbox{\Hypertarget{calculator_8py_ae9e9332036887262301ed6ae86aa4132}\label{calculator_8py_ae9e9332036887262301ed6ae86aa4132}} 
+{\bfseries calculator.\+four\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}4\char`\"{}, command=lambda\+: click(4))
+\item 
+\mbox{\Hypertarget{calculator_8py_a6c9b20347985871bb3d4db4230c1c3bb}\label{calculator_8py_a6c9b20347985871bb3d4db4230c1c3bb}} 
+{\bfseries calculator.\+five\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}5\char`\"{}, command=lambda\+: click(5))
+\item 
+\mbox{\Hypertarget{calculator_8py_abf875a397962176c7ce0cad0d3f785bc}\label{calculator_8py_abf875a397962176c7ce0cad0d3f785bc}} 
+{\bfseries calculator.\+six\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}6\char`\"{}, command=lambda\+: click(6))
+\item 
+\mbox{\Hypertarget{calculator_8py_ab94e74afafd3e50ca2dcbc4a828208da}\label{calculator_8py_ab94e74afafd3e50ca2dcbc4a828208da}} 
+{\bfseries calculator.\+seven\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}7\char`\"{}, command=lambda\+: click(7))
+\item 
+\mbox{\Hypertarget{calculator_8py_aa03c13cb101a81895e03b6f7f28defcd}\label{calculator_8py_aa03c13cb101a81895e03b6f7f28defcd}} 
+{\bfseries calculator.\+eight\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}8\char`\"{}, command=lambda\+: click(8))
+\item 
+\mbox{\Hypertarget{calculator_8py_a88dcc50672312cb246dcfa57b6341488}\label{calculator_8py_a88dcc50672312cb246dcfa57b6341488}} 
+{\bfseries calculator.\+nine\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}9\char`\"{}, command=lambda\+: click(9))
+\item 
+\mbox{\Hypertarget{calculator_8py_a78486ea6c7e8865abfa48a9799135618}\label{calculator_8py_a78486ea6c7e8865abfa48a9799135618}} 
+{\bfseries calculator.\+zero\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}0\char`\"{}, command=lambda\+: click(0))
+\item 
+\mbox{\Hypertarget{calculator_8py_ad1af47563496ac43807e46f89638c526}\label{calculator_8py_ad1af47563496ac43807e46f89638c526}} 
+{\bfseries calculator.\+add\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}+\char`\"{}, command=lambda\+: click(\char`\"{}+\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_ad1b25a840c9e886867c7457ea61ccf08}\label{calculator_8py_ad1b25a840c9e886867c7457ea61ccf08}} 
+{\bfseries calculator.\+subtract\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}-\/\char`\"{}, command=lambda\+: click(\char`\"{}-\/\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_a627ef7ea682ee0eeca9a2b09fa118070}\label{calculator_8py_a627ef7ea682ee0eeca9a2b09fa118070}} 
+{\bfseries calculator.\+equal\+Icon} = Photo\+Image(file=\char`\"{}icons/equal\+Icon.\+png\char`\"{})
+\item 
+\mbox{\Hypertarget{calculator_8py_a76435bf0b9e744d7800a1afc48fd920c}\label{calculator_8py_a76435bf0b9e744d7800a1afc48fd920c}} 
+{\bfseries calculator.\+equal\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, image=equal\+Icon, command=equal)
+\item 
+\mbox{\Hypertarget{calculator_8py_ac1c0888f7d5eb82aecbe0599e1817645}\label{calculator_8py_ac1c0888f7d5eb82aecbe0599e1817645}} 
+{\bfseries calculator.\+clear\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}C\char`\"{}, command=clear)
+\item 
+\mbox{\Hypertarget{calculator_8py_a4a473646a045db8f2085807faf9d4b24}\label{calculator_8py_a4a473646a045db8f2085807faf9d4b24}} 
+{\bfseries calculator.\+delete\+Icon} = Photo\+Image(file=\char`\"{}icons/delete\+Icon.\+png\char`\"{})
+\item 
+\mbox{\Hypertarget{calculator_8py_aaebf60baaed11d575351bac6ca523392}\label{calculator_8py_aaebf60baaed11d575351bac6ca523392}} 
+{\bfseries calculator.\+delete\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, image=delete\+Icon, command=remove\+\_\+last)
+\item 
+\mbox{\Hypertarget{calculator_8py_abd6a611b4401bcfb23c003181fed08b4}\label{calculator_8py_abd6a611b4401bcfb23c003181fed08b4}} 
+{\bfseries calculator.\+nth\+\_\+root\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}n√\char`\"{}, command=lambda\+: click(\char`\"{}n√\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_ab78a4ac7d949d983a853c9b10a5f4a12}\label{calculator_8py_ab78a4ac7d949d983a853c9b10a5f4a12}} 
+{\bfseries calculator.\+sqrt\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}√\char`\"{}, command=lambda\+: click(\char`\"{}2n√\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_a29ef3f7ae73fb3a88dd24b0223836716}\label{calculator_8py_a29ef3f7ae73fb3a88dd24b0223836716}} 
+{\bfseries calculator.\+modulo\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}mod\char`\"{}, command=lambda\+: click(\char`\"{}mod\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_a6ec6116dd168e791a82db5467d01c63a}\label{calculator_8py_a6ec6116dd168e791a82db5467d01c63a}} 
+{\bfseries calculator.\+factorial\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}!\char`\"{}, command=lambda\+: click(\char`\"{}!\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_a8cd1473dd3709edcf22201bf3a7bdcc2}\label{calculator_8py_a8cd1473dd3709edcf22201bf3a7bdcc2}} 
+{\bfseries calculator.\+power\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}$^\wedge$\char`\"{}, command=lambda\+: click(\char`\"{}$^\wedge$\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_a91f9a575f91189251bf8e0e8efb6d757}\label{calculator_8py_a91f9a575f91189251bf8e0e8efb6d757}} 
+{\bfseries calculator.\+binary\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}bin\char`\"{}, command=lambda\+: click(\char`\"{}bin\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_abcb87c9ce75b28a6a37e526c5204dadb}\label{calculator_8py_abcb87c9ce75b28a6a37e526c5204dadb}} 
+{\bfseries calculator.\+decimal\+\_\+point\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}.\char`\"{}, command=lambda\+: click(\char`\"{}.\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_ac0f79cdf6ba097953d57dd58d189510d}\label{calculator_8py_ac0f79cdf6ba097953d57dd58d189510d}} 
+{\bfseries calculator.\+multiply\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}$\ast$\char`\"{}, command=lambda\+: click(\char`\"{}$\ast$\char`\"{}))
+\item 
+\mbox{\Hypertarget{calculator_8py_a51256a8748f8ceaa2cb12e292c7a3ded}\label{calculator_8py_a51256a8748f8ceaa2cb12e292c7a3ded}} 
+{\bfseries calculator.\+divide\+\_\+btn} = ttk.\+Button(root, style=\textquotesingle{}style.\+TButton\textquotesingle{}, text=\char`\"{}/\char`\"{}, command=lambda\+: click(\char`\"{}/\char`\"{}))
+\end{DoxyCompactItemize}
+
+
+
+\doxysubsection{Detailed Description}
+Python file generating GUI and handling events associated with GUI. 
+
+\begin{DoxyAuthor}{Author}
+GUI -\/ Ladislav Vašina, xvasin11 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+05-\/04-\/2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{calculator_8py_ac3bffe481f0b7dfa84f0f6450b3baaa8}\label{calculator_8py_ac3bffe481f0b7dfa84f0f6450b3baaa8}} 
+\index{calculator.py@{calculator.py}!click@{click}}
+\index{click@{click}!calculator.py@{calculator.py}}
+\doxysubsubsection{\texorpdfstring{click()}{click()}}
+{\footnotesize\ttfamily def calculator.\+click (\begin{DoxyParamCaption}\item[{}]{number }\end{DoxyParamCaption})}
+
+
+
+click function inserts given number to the Entry field 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em number} & -\/$>$ outputs given varible to the entry field \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 82 of file calculator.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82 \textcolor{keyword}{def }click(number): }
+\DoxyCodeLine{83     current = e.get() }
+\DoxyCodeLine{84     e.delete(0, END) }
+\DoxyCodeLine{85     e.insert(0, str(current) + str(number)) }
+\DoxyCodeLine{86  }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{calculator_8py_ac3f8f2d61edb9ccaf7dd9416c87e30e1}\label{calculator_8py_ac3f8f2d61edb9ccaf7dd9416c87e30e1}} 
+\index{calculator.py@{calculator.py}!equal@{equal}}
+\index{equal@{equal}!calculator.py@{calculator.py}}
+\doxysubsubsection{\texorpdfstring{equal()}{equal()}}
+{\footnotesize\ttfamily def calculator.\+equal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+function equal saves math expression to the \textquotesingle{}expression\textquotesingle{} variable and calls input function also deletes the Entry field 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em expression} & -\/$>$ is used in math libraries to resolve result \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 107 of file calculator.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107 \textcolor{keyword}{def }equal(): }
+\DoxyCodeLine{108     second\_number = e.get() }
+\DoxyCodeLine{109     e.delete(0, END) }
+\DoxyCodeLine{110     expression=second\_number }
+\DoxyCodeLine{111     result = input(expression) }
+\DoxyCodeLine{112     e.delete(0, END) }
+\DoxyCodeLine{113     output(result) }
+\DoxyCodeLine{114     \textcolor{keywordflow}{return} }
+\DoxyCodeLine{115  }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{calculator_8py_a52f66128b3fd0e079400905b8ebe14b3}\label{calculator_8py_a52f66128b3fd0e079400905b8ebe14b3}} 
+\index{calculator.py@{calculator.py}!keyboard\_entry@{keyboard\_entry}}
+\index{keyboard\_entry@{keyboard\_entry}!calculator.py@{calculator.py}}
+\doxysubsubsection{\texorpdfstring{keyboard\_entry()}{keyboard\_entry()}}
+{\footnotesize\ttfamily def calculator.\+keyboard\+\_\+entry (\begin{DoxyParamCaption}\item[{}]{event }\end{DoxyParamCaption})}
+
+
+
+keyboard\+\_\+entry function handles enter keyboard event and calls \textquotesingle{}equal\textquotesingle{} function 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em event} & -\/$>$ variable which holds event of the key that was pressed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 118 of file calculator.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{118 \textcolor{keyword}{def }keyboard\_entry(event): }
+\DoxyCodeLine{119     e.focus\_set() }
+\DoxyCodeLine{120     \textcolor{keywordflow}{if} event.keysym==\textcolor{stringliteral}{'KP\_Enter'} \textcolor{keywordflow}{or} event.keysym==\textcolor{stringliteral}{'Return'} \textcolor{keywordflow}{or} event.keysym==\textcolor{stringliteral}{'equal'}: }
+\DoxyCodeLine{121         equal() }
+\DoxyCodeLine{122          }
+\DoxyCodeLine{123 root.bind(\textcolor{stringliteral}{"{}<Key>"{}}, keyboard\_entry)   }
+\DoxyCodeLine{124  }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{calculator_8py_a820a14e2a521283bd35f41fdeb0aa7f0}\label{calculator_8py_a820a14e2a521283bd35f41fdeb0aa7f0}} 
+\index{calculator.py@{calculator.py}!output@{output}}
+\index{output@{output}!calculator.py@{calculator.py}}
+\doxysubsubsection{\texorpdfstring{output()}{output()}}
+{\footnotesize\ttfamily def calculator.\+output (\begin{DoxyParamCaption}\item[{}]{result }\end{DoxyParamCaption})}
+
+
+
+output function outputs result to the Entry field 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em result} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 101 of file calculator.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{101 \textcolor{keyword}{def }output(result): }
+\DoxyCodeLine{102     e.insert(0, result) }
+\DoxyCodeLine{103     \textcolor{keywordflow}{return} }
+\DoxyCodeLine{104  }
+
+\end{DoxyCode}
