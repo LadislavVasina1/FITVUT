@@ -1,0 +1,212 @@
+#!/bin/sh
+export POSIXLY_CORRECT=yes
+export LC_NUMECRIC=en_US.UTF-8
+
+print_help(){
+  echo "Usage: tradelog [-h|--help]"
+  echo "       tradelog [FILTER] [COMMAND] [LOG [LOG2 [...]]]"
+  echo ""
+  echo "COMMAND can be just one from the list below:"
+  echo "    list-tick – outputs list containing all TICKERS"
+  echo "    profit – outputs profits"
+  echo "    pos – outputs list of values of currently held positions sorted in descending order by value."
+  echo "    last-price – outputs last known price of each ticker."
+  echo "    hist-ord – outputs histogram of number of transactions according to the ticker."
+  echo "    graph-pos – outputs graph of values of held positions according to the ticker."
+  echo ""
+  echo "FILTER can be a combination of the followings:"
+  echo "    -a DATETIME – after: only logs AFTER (without entered date) are considered"
+  echo "    -b DATETIME – before: only logs BEFORE (without entered date) are considered"
+  echo "    -t TICKER – only entries according to the ticker are considered - in case of multiple occurrences of -t switch the set of all logs containing the tickers are considered"
+  echo "    -w WIDTH – while displaying graphs -w XX sets graph width(length of the longest row). XX must be unsigned integer - multiple occurrences of -w switch will cause faulty start."
+  echo ""
+  echo "If there are no arguments entered script copies input to the output."
+}
+
+ARGC=$#
+COMMAND=""
+LOGS=""
+GZLOGS=""
+TICKERS=""
+INPUT=""
+NO_DEFAULT_OUTPUT=0
+BEFORE="9999-99-99"
+AFTER="0000-00-00"
+W_COUNTER=0
+WIDTH=""
+CMD_COUNTER=0
+for LAST; do true; done
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+  list-tick | profit | pos | last-price | hist-ord | graph-pos)
+    CMD_COUNTER=$((CMD_COUNTER+1))
+    COMMAND="$1"
+    NO_DEFAULT_OUTPUT="1"
+    shift
+    ;;
+  pos)
+    COMMAND="$1"
+    echo $COMMAND
+    shift
+    ;;
+  -t)
+    if [ -z "$TICKERS" ]; then
+        TICKERS="$2"
+        else
+        TICKERS="$2\|$TICKERS"
+    fi
+
+    NO_DEFAULT_OUTPUT="1"
+    shift
+    shift
+    ;;
+  -h)
+    print_help
+    exit 0
+    ;;
+  --help)
+    print_help
+    exit 0
+    ;;
+  -w)
+    W_COUNTER=$((W_COUNTER+1))
+    COMMAND="$1"
+    WIDTH="$2"
+    shift
+    shift
+    ;;
+  -b)
+    #DATE="$2"
+    #TIME=" $3"
+    BEFORE="$2"
+    NO_DEFAULT_OUTPUT="1"
+    #shift
+    shift
+    shift
+    ;;
+  -a)
+    #DATE="$2"
+    #TIME=" $3"
+    AFTER="$2"
+    NO_DEFAULT_OUTPUT="1"
+    #shift
+    shift
+    shift
+    ;;
+  *)
+    if file --mime-type "$1" | grep -q gzip$; then
+    GZLOGS="$1 $GZLOGS"
+    else
+    LOGS="$1 $LOGS"
+    fi
+    shift
+    ;;
+  esac
+done
+
+if [ $CMD_COUNTER -gt 1 ]; then
+    echo "!!!ENTER JUST 1 COMMAND!!!"
+    exit 1
+fi
+
+if [ $W_COUNTER -gt 1 ]; then
+    echo "TOO MANY -w SWITCHES!"
+    exit 1
+fi
+
+if [ $W_COUNTER -eq 1 ]; then
+    case $WIDTH in
+    ''|*[!0-9]*)
+    printf "*********\n-w XX --> XX must be unsigned integer.\n!!!TRY AGAIN!!!"
+    exit 1
+    ;;
+    *) ;;
+    esac
+fi
+
+if [ -z $GZLOGS ]; then
+INPUT="cat $LOGS"
+else
+INPUT="gzip -d -c $GZLOGS | cat $LOGS -"
+fi
+
+if [ -z $COMMAND ] && [ -z $TICKERS ]; then
+    eval $INPUT
+fi
+
+FILTERED_TICKERS="$INPUT| grep '\(;$TICKERS;\)'"
+FILTERED_OUTPUT="$FILTERED_TICKERS | awk -F';' '{if(\$1 > \"$AFTER\" && \$1 < \"$BEFORE\")print \$0}' "
+if [ -z $COMMAND ] ; then
+  eval $FILTERED_OUTPUT
+fi
+
+case $COMMAND in
+list-tick)
+      if [ -z $TICKERS ]; then
+         eval $INPUT | grep -oP "(?<=\;).*(?=;)" | cut -f1 -d";" | sort --unique
+      else
+         eval $FILTERED_OUTPUT | grep -oP "(?<=\;).*(?=;)" | cut -f1 -d";" | sort --unique
+      fi
+;;
+profit)
+      if [ -z $TICKERS ]; then
+         eval "$INPUT | awk -v buy=0 -v sell=0 -F';' '{OFMT=\"%0.2f\"; if(\$3==\"buy\")buy+=\$4*\$6;if(\$3==\"sell\")sell+=\$4*\$6;print sell-buy}' | tail -n 1"
+      else
+         eval "$FILTERED_OUTPUT | awk -v buy=0 -v sell=0 -F';' '{OFMT=\"%0.2f\"; if(\$3==\"buy\")buy+=\$4*\$6;if(\$3==\"sell\")sell+=\$4*\$6;print sell-buy}' | tail -n 1"
+      fi
+;;
+pos)#TODO
+  if [ -z $TICKERS ]; then
+    eval "$INPUT | sort -n -r | sort -n -r | sort -s -t ';' -k 2,2 | sort --unique -t ';' -k 2,2 |
+    awk -v unitsHeld=0 -v buy=0 -v sell=0 -F ';' '{OFMT=\"%0.2f\";
+    if(\$3==\"buy\")buy+=\$6;
+    if(\$3==\"sell\")sell+=\$6;
+    unitsHeld=buy-sell;
+    printf(\"%-10s: \",\$2);
+    printf(\"%.2f\n\",unitsHeld);}' | sort -rn -k3,3 | sort -u -k1,1"
+  else
+    eval "$FILTERED_OUTPUT | sort -n -r | sort -s -t ';' -k 2,2 | sort -t ';' -k 2,2 |
+    awk -v unitsHeld=0 -v buy=0 -v sell=0 -F ';' '{OFMT=\"%0.2f\";
+    if(\$3==\"buy\")buy+=\$6;
+    if(\$3==\"sell\")sell+=\$6;
+    unitsHeld=buy-sell;
+    printf(\"%-10s: \",\$2);
+    printf(\"%.2f\n\",unitsHeld);}'"
+  fi
+;;
+last-price)
+  if [ -z $TICKERS ]; then
+    eval "$INPUT | sort -n -r | sort -s -t ';' -k 2,2 | sort --unique -t ';' -k 2,2 | awk -F ';' '{printf(\"%-10s: %7.2f\n\",\$2, \$4)}'"
+  else
+    eval "$FILTERED_OUTPUT | sort -n -r | sort -s -t ';' -k 2,2 | sort --unique -t ';' -k 2,2 | awk -F ';' '{printf(\"%-10s: %7.2f\n\",\$2, \$4)}'"
+  fi
+;;
+hist-ord)#BOHUZEL PRI PRACI S GZ SOUBORY GZIP VYHAZUJE CHYBU A AZ PAK PROVADI VYPIS
+    #eval "$INPUT | sort -n -r | sort -s -t ';' -k 2,2 | awk -F ';' '{printf(\"%-10s: \n\",\$2)}' | sort -u"
+    #eval "$INPUT | sort -n -r | sort -s -t ';' -k 2,2 | awk -F ';' '{printf(\"%-10s: \n\",\$2)}' | uniq -c | awk '{ for (i = 0; i < \$1; ++i) printf( \"%s\", \"#\");printf( \"%s\", \"\\n\")}'"
+    OUTCNT=$($INPUT | sort -n -r | sort -s -t ';' -k 2,2 | awk -F ';' '{printf("%-10s: \n",$2)}' | uniq -c | awk '{ for (i = 0; i < $1; ++i) printf( "%s", "#");printf( "%s", "\n")}' | wc -l)
+
+for line in `seq 1 $OUTCNT`
+do
+    OUTTICK=$($INPUT | sort -n -r | sort -s -t ';' -k 2,2 | awk -F ';' '{printf("%-10s: \n",$2)}' | sort -u | awk NR=="$line")
+    OUTHIST=$($INPUT | sort -n -r | sort -s -t ';' -k 2,2 | awk -F ';' '{printf("%-10s: \n",$2)}' | uniq -c | awk '{ for (i = 0; i < $1; ++i) printf( "%s", "#");printf( "%s", "\n")}' | awk NR=="$line")
+    echo -n "$OUTTICK"
+    echo -n "$OUTHIST"
+    echo -n "\n"
+done
+;;
+graph-pos)#TODO
+;;
+*)
+;;
+esac
+#if [  ]; then
+#    eval "$READ_FILTERED | awk"
+
+#   sort -t ';' -k 2,2
+#    sort | sort -s -t ';' -k 2,2
+#   awk '{printf %12.2, s}'
+#    awk '{printf %-10s, s}'
+#    awk 'BEGIN{} {neco} END{}'
+#fi
