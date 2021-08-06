@@ -1,2 +1,3 @@
 # FITVUT
-Projects that I have done during my study at the Faculty of Information Technology at Brno University of Technology.
+Projects that I have done during my studies at 
+the Faculty of Information Technology at Brno University of Technology.
