@@ -1,0 +1,91 @@
+<!--
+File containing resident's view of the message board.
+
+@author: Dominik Vágner
+@email: xvagne10@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert %}
+
+{% block title %} Message Board {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-12 mb-4" style="max-height: 1000px;">
+            <div class="card mb-4" style="height: 60%">
+                <div class="card-body pt-0 px-0 h-50">
+                    <div class="card-header">
+                        <div class="d-flex mt-2 align-items-center">
+                            <h3 class="me-auto mb-0">Notice Board</h3>
+                        </div>
+                        <hr class="w-100 mb-1">
+                        <div class="d-inline-flex flex-row align-items-center flex-wrap">
+                            <label for="filter_states" class="mt-2">Type of Notice</label>
+                            <select class="mx-3 mt-2 form-select" style="width: max-content" aria-label="state-filter" id="filter_states">
+                                <option value="All Types" selected>All Types</option>
+                                <option value="Announcement">Announcement</option>
+                                <option value="Extraordinarity">Extraordinarity</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Closure">Closure</option>
+                            </select>
+                            <label for="date_from" class="mt-2">Date Range</label>
+                            <input type="text" class="ms-3 mt-2 form-control" id="daterange" style="width: 225px">
+                        </div>
+                    </div>
+                    <div class="card-body overflow-auto" style="height:90%" id="notices"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        // Render the notices
+        const notices = document.getElementById("notices");
+        async function renderNotices() {
+            notices.innerHTML = "";
+            const data = JSON.stringify({
+                type: document.getElementById("filter_states").value,
+                daterange: document.getElementById("daterange").value,
+            });
+            const response = await fetch("{{ url_for("api.auth_api.query_notices") }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: data,
+            });
+            const response_message = await response.json();
+            const notices_data = eval(response_message);
+            if (notices_data.length === 0) {
+                notices.innerHTML = "<div class='text-center pt-4'>No notices found.</div>";
+                console.log("No notices found.");
+            } else {
+                eval(notices_data).forEach((notice) => {
+                    notices.innerHTML += notice_card_macro(notice);
+                });
+            }
+        }
+
+        // Load the notices on page load
+        window.onload = async (e) => {
+            await renderNotices();
+        }
+
+        // React to the type of notice filter
+        document.getElementById("filter_states").addEventListener("change" , async (e) => {
+            await renderNotices();
+        });
+
+        // React to date range picker apply for filtering the notices
+        document.getElementById("daterange").addEventListener("apply.", async (e) => {
+            await renderNotices();
+        });
+        $('#daterange').on('apply.daterangepicker', async function(ev, picker) {
+            await renderNotices();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,467 @@
+<!--
+File containing manager's dashboard view
+
+@author: Ladislav Vašina
+@email: xvasin11@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert %}
+
+{% block title %} Manager dashboard {% endblock %}
+
+
+{% block css %}
+    <style>
+        /* Style the Image Used to Trigger the Modal */
+        /* Taken from: https://www.w3schools.com/howto/howto_css_modal_images.asp */
+
+        #ticketImage:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (Image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image (Image Text) - Same Width as the Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation - Zoom in the Modal */
+        .modal-content, #caption {
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+
+        /* Nicer scrollbar */
+        /* width */
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: grey;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #040000;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center mt-4 alertWindow">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Ticket state has been changed successfully!
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            There was an error while updating the ticket state!
+        </div>
+    </div>
+    {% for ticket in tickets %}
+        {% if ticket.id == selected_ticket_id %}
+            <div class="d-flex justify-content-center align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for("manager.manager_dashboard") }}"
+                                                       style="text-decoration: none;">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Ticket #{{ ticket.id }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-4">
+            <div class="row gx-4 col-10">
+                <div class="col-xl-6 mb-4 h-25">
+                    <div class="card mb-4 h-100">
+                        <div class="card-header">
+                            <div class="col-8">
+                                <b class="ticketId" id="{{ ticket.id }}">Summary of the ticket #{{ ticket.id }}</b>
+                            </div>
+                            <div class="col-6">
+                                <p class="m-0">{{ ticket.created_at }}</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <h4 class="col-9">Name: {{ ticket.name }}</h4>
+                                <select class="form-select w-50 me-1 ms-2 mt-2" aria-label="Default select example"
+                                        id="stateSelect">
+                                    <option value="NEW"
+                                            {% if ticket.state.value == "New" %}
+                                            selected
+                                            {% endif %}
+                                    >New
+                                    </option>
+                                    <option value="PLANNED"
+                                            {% if ticket.state.value == "Planned" %}
+                                            selected
+                                            {% endif %}
+                                    >Planned
+                                    </option>
+                                    <option value="WORK_IN_PROGRESS"
+                                            {% if ticket.state.value == "Work In Progress" %}
+                                            selected
+                                            {% endif %}
+                                    >Work in progress
+                                    </option>
+                                    <option value="DONE"
+                                            {% if ticket.state.value == "Done" %}
+                                            selected
+                                            {% endif %}
+                                    >Done
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <b class="card-text me-5 float-start mt-2">Reported
+                                    by: {{ all_users[ticket.reporter_id - 1].fullname }}</b>
+                                {% if ticket.assignee_id != None %}
+                                    <b class="card-text me-5 mb-3 float-start mt-2">Assignee: {{ all_users[ticket.assignee_id].fullname }}</b>
+                                {% else %}
+                                    <p class="card-text me-5 mb-3 float-start mt-2">Assignee: Nobody is assigned</p>
+                                {% endif %}
+
+                            </div>
+                            <b>Report date: {{ ticket.created_at }}</b>
+                            <h4 class="mt-3">Description:</h4>
+                            <p>{{ ticket.description }}</p>
+
+                            <hr>
+                            <div id="manager-ticket-view-map" style="height: 400px"></div>
+                            <p style="display: none" id="latitude">{{ ticket.latitude }}</p>
+                            <p style="display: none" id="longitude">{{ ticket.longitude }}</p>
+
+                            {% if ticket.image_path != None %}
+                                <hr>
+                                <div class="d-flex justify-content-center align-items-center mt-4">
+                                    <img src="{{ ticket.image_path }}" class="img-fluid rounded-start mb-3"
+                                         alt="{{ ticket.image_path }}" id="ticketImage" style="max-height:400px;">
+                                </div>
+                                <div id="myModal" class="modal">
+                                    <span class="close">&times;</span>
+                                    <img class="modal-content" id="img01" alt="{{ ticket.image_path }}">
+                                </div>
+
+                            {% else %}
+                                <hr>
+                                <label for="ticketImage" class="">User has not uploaded an image for this
+                                    ticket</label>
+                            {% endif %}
+                            <!-- Assigned service tasks below-->
+                            {% if tickets_tasks == [] %}
+                                <small>No service tasks were assigned with this ticket</small>
+                            {% else %}
+                                <b class="mt-3">Assigned service tasks:</b>
+                                {% for ticket_task in tickets_tasks %}
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-12 me-5 mt-2 ">
+                                            <button type="button" class="state btn w-100"
+                                                    style="float:left;pointer-events: none;">{{ ticket_task.state.value }}</button>
+                                        </div>
+                                        <div class="col-7 ms-2 mt-2">
+                                            <b>Name:</b><br>
+                                            <a href="{{ url_for("technician.task_view") }}?taskID={{ ticket_task.id }}&&parent={{ ticket.id }}"
+                                               style="text-decoration: none;">
+                                                {{ ticket_task.name }}
+                                            </a>
+                                        </div>
+                                        <div class="col-3 ms-2 mt-2">
+                                            <b>Hours worked:</b>
+                                            <p>{{ ticket_task.man_hours }} hours</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <!-- END of assigned service tasks-->
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right comment card-->
+                <div class="col-xl-6 mb-4" style="max-height: 1000px;">
+                    <div class="card mb-4" style="height: 60%">
+                        <div class="card-body pt-0 px-0 h-50">
+                            <div class="card-header">
+                                Comments of ticket: <b>{{ ticket.name }}</b>
+                            </div>
+                            <div class="card-body overflow-auto" style="height:90%" id="commentCardBody">
+                                {% for ticket_comment in ticket_comments %}
+                                    <!-- START of the individual comment card-->
+                                    <div class="card mt-2">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <b>{{ all_users[ticket_comment.commenter_id - 1].fullname }}</b>
+                                                    <p class="m-0">{{ ticket_comment.created_at }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{ ticket_comment.content }}</p>
+                                        </div>
+                                    </div>
+                                    <!-- END of the individual comment card-->
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="container mt-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <form id="commentForm">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control mt-1" id="commentTextField"
+                                                   placeholder="Type your comment" required>
+                                            <button id="recordBtn" name="recordBtn"
+                                                    class="btn btn-search ps-0 pt-0 mb-1"
+                                                    onclick="record()">
+                                                <i class="las la-microphone" id="record"></i> <small class="form-text">
+                                                Voice type your comment
+                                            </small>
+                                            </button>
+                                            <button type="submit" class="btn btn-primary mt-1 mb-3 col-12">Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+
+        let statesList = document.getElementsByClassName("state");
+        for (let i = 0; i < statesList.length; i++) {
+            statesList[i].style.fontWeight = "bold";
+            if (statesList[i].innerHTML === "New") {
+                statesList[i].style.color = "white";
+                //statesList[i].style.width = "146px";
+                statesList[i].classList.add("btn-danger");
+            } else if (statesList[i].innerHTML === "Planned") {
+                statesList[i].style.color = "black";
+                //statesList[i].style.width = "146px";
+                statesList[i].classList.add("btn-info");
+            } else if (statesList[i].innerHTML === "Work In Progress") {
+                statesList[i].style.color = "black";
+                statesList[i].classList.add("btn-warning");
+            } else if (statesList[i].innerHTML === "Done") {
+                statesList[i].style.color = "white";
+                //statesList[i].style.width = "146px";
+                statesList[i].classList.add("btn-success");
+            }
+        }
+
+        $(".alert-success").hide();
+        $(".alert-danger").hide();
+
+
+        $('#recordBtn').on("click", function (e) {
+            e.preventDefault();
+        });
+
+        function record() {
+            let recognition = new webkitSpeechRecognition();
+            recognition.lang = "cs-CZE";
+            recognition.onresult = function (event) {
+                console.log(event);
+                document.getElementById('commentTextField').value = event.results[0][0].transcript;
+            }
+            recognition.start();
+            recognition.onspeechend = function () {
+                recognition.stop();
+                console.log('Speech recognition has stopped.');
+            }
+
+        }
+
+
+        const commentCardBody = document.getElementById("commentCardBody");
+        commentCardBody.scrollTop = commentCardBody.scrollHeight;
+        // NICER IMAGE VIEW
+        // Get the modal
+        const modal = document.getElementById("myModal");
+        // Get the image and insert it inside the modal
+        const img = document.getElementById("ticketImage");
+        if (img != null) {
+            const modalImg = document.getElementById("img01");
+            const captionText = document.getElementById("caption");
+            img.onclick = function () {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+            // Get the <span> element that closes the modal
+            const span = document.getElementsByClassName("close")[0];
+            const myModal = document.getElementById("myModal");
+            // When the user clicks on <span> (x) or anywhere, close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            myModal.onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+
+        $('#stateSelect').on('change', function () {
+            let updatedState = $(this).val();
+            let currentTicketId = $('.ticketId').attr('id');
+            console.log(updatedState);
+            console.log(currentTicketId);
+            $.ajax({
+                type: 'POST',
+                url: '{{ url_for("api.auth_api.edit_state") }}',
+                data: JSON.stringify({
+                    state: updatedState,
+                    ticket_id: currentTicketId
+                }),
+                success: function (response) {
+                    console.log(response);
+                    $(".alert-success").show();
+                    setTimeout(function () {
+                        $(".alert-success").hide();
+                    }, 3000);
+                },
+                error: function (response) {
+                    console.log(response);
+                    $(".alert-success").show();
+                    setTimeout(function () {
+                        $(".alert-success").hide();
+                    }, 3000);
+                },
+                dataType: "json",
+                contentType: "application/json"
+            });
+        });
+
+        $("#commentForm").submit(function (e) {
+            e.preventDefault();
+            let content = $("#commentTextField").val();
+            let currentTicketId = $('.ticketId').attr('id');
+            let currentUserId = {{ current_user.id }};
+            // Convert to mysql datetime format
+            let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            console.log(content);
+            console.log(currentTicketId);
+            console.log(currentUserId);
+            console.log(now);
+            $.ajax({
+                type: 'POST',
+                url: '{{ url_for("api.auth_api.add_comment") }}',
+                data: JSON.stringify({
+                    content: content,
+                    created_at: now,
+                    ticket_id: currentTicketId,
+                    commenter_id: currentUserId
+                }),
+                success: function (response) {
+                    console.log(response);
+                    let commentToAppend = ' <!-- START of the individual comment card-->\
+                                    <div class="card mt-2">\
+                                        <div class="card-header">\
+                                            <div class="row">\
+                                                <div class="col-12">\
+                                                    <b>{{ current_user.fullname }}</b>\
+                                                    <p class="m-0">' + now + '</p>\
+                                                </div>\
+                                        </div>\
+                                        </div>\
+                                        <div class="card-body">\
+                                            <p class="card-text">' + content + '</p>\
+                                        </div>\
+                                    </div>\
+                                     <!-- END of the individual comment card-->';
+                    $("#commentCardBody").append(commentToAppend);
+                    commentCardBody.scrollTop = commentCardBody.scrollHeight;
+                    $("#commentTextField").val("");
+                },
+                error: function (response) {
+                    console.log(response);
+                },
+                dataType: "json",
+                contentType: "application/json"
+            });
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,21 @@
+<!--
+File containing 401 page
+
+@author: Dominik Vágner
+@email: xvagne10@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+
+{% block title %} Unauthorized {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <div>
+            <h1>401</h1>
+            <p>You aren't authorized to see this page. Please <a href="{{ url_for("auth.login") }}">log in</a> first.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

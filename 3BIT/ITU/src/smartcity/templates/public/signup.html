@@ -1,0 +1,152 @@
+<!--
+File containing signup page
+
+@author: Dominik Vágner
+@email: xvagne10@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert%}
+
+{% block title %} Login - Smartcity {% endblock %}
+
+{% block body %}
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div style="border: 4px solid #96031A"></div>
+                        <div class="card bg-white shadow-lg" style="border-top-left-radius: 0; border-top-right-radius: 0">
+                            <div class="card-body pb-5 px-5 pt-3">
+                                <form id="form" class="mb-3 mt-md-4" method="POST" novalidate>
+                                    <p><a class="mb-5 mt-1 text-decoration-none text-dark" href="{{ url_for("home.index") }}"><i class="las la-angle-double-left pb-1" style="font-size: 18px;"></i>Go back</a></p>
+                                    <i class="las la-city" style="font-size: 36px"></i><b style="font-size: 32px; margin-left: 10px">SMARTCITY</b>
+                                    <p class="mt-3 mb-4 mt-1">Get started with your account!</p>
+                                    {# CSRF Token #}
+                                    {{ form.csrf_token() }}
+                                    <div id="csrf_token_error" class="text-danger"></div>
+                                    {# Form fields #}
+                                    <div class="mb-3 row">
+                                        <div class="col">
+                                            {{ render_text_field(form.name) }}
+                                        </div>
+                                        <div class="col">
+                                            {{ render_text_field(form.surname) }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        {{ render_text_field(form.email) }}
+                                    </div>
+                                    <div class="mb-3">
+                                        {{ render_text_field(form.password) }}
+                                    </div>
+                                    <div class="my-3">
+                                        {{ render_text_field(form.confirm) }}
+                                    </div>
+                                    <div class="d-grid mt-5">
+                                        <button class="btn btn-outline-dark" type="submit">Signup</button>
+                                    </div>
+                                </form>
+                                <div>
+                                  <p class="mt-3  text-center">Do you already have an account? <a href="{{ url_for("auth.login") }}" class="fw-bold" style="color: #96031A">Login</a></p>
+                                </div>
+                                <div id="alerts" class="mt-3"></div>
+                                <div id="success-message" style="display: none;"></div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+// Force email keyboard on mobile devices
+let x = document.getElementById("email");
+x.type = "email";
+// Get form elements by IDs
+const form = document.getElementById("form")
+const successMessage = document.getElementById("success-message");
+const alerts = document.getElementById("alerts");
+const fields = {
+    csrf_token: {
+        input: document.getElementById('csrf_token'),
+        error: document.getElementById('csrf_token-error')
+    },
+    name: {
+        input: document.getElementById('name'),
+        error: document.getElementById('name-error')
+    },
+    surname: {
+        input: document.getElementById('surname'),
+        error: document.getElementById('surname-error')
+    },
+    email: {
+        input: document.getElementById('email'),
+        error: document.getElementById('email-error')
+    },
+    password: {
+        input: document.getElementById('password'),
+        error: document.getElementById('password-error')
+    },
+    confirm: {
+        input: document.getElementById('confirm'),
+        error: document.getElementById('confirm-error')
+    }
+}
+
+// React to form submission
+form.addEventListener("submit", async (e) => {
+   e.preventDefault();
+   // Make JSON out of the form input value
+   let data = JSON.stringify({
+       csrf_token: fields.csrf_token.input.value,
+       name: fields.name.input.value,
+       surname: fields.surname.input.value,
+       email: fields.email.input.value,
+       password: fields.password.input.value,
+       confirm: fields.confirm.input.value,
+       role: 1,
+   });
+
+   const response = await fetch("{{ url_for("auth.signup") }}", {
+       method: "POST",
+       headers: {
+           "Content-Type": "application/json"
+       },
+       body: data,
+   });
+   for (let key in fields) {
+       if (fields[key].input.classList.contains("is-invalid")) {
+           fields[key].input.classList.remove("is-invalid");
+           fields[key].error.innerText = "";
+       }
+   }
+   if (response.ok) {
+       const api_response = await fetch("{{ url_for("api.auth_api.signup") }}", {
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json"
+           },
+           body: data,
+       });
+
+       if (api_response.ok) {
+           window.location.assign("{{ url_for("home.index") }}")
+       } else {
+           const message = await api_response.json();
+           alerts.innerHTML = bootstrap_alert_macro(message["message"], "danger")
+       }
+   } else {
+       const errors = await response.json();
+       Object.keys(errors).forEach((key) => {
+           fields[key].input.classList.add("is-invalid");
+           fields[key].error.innerText = errors[key][0];
+       });
+   }
+});
+
+</script>
+{% endblock %}

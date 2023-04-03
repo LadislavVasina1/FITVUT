@@ -1,0 +1,141 @@
+<!--
+File containing login page
+
+@author: Dominik Vágner
+@email: xvagne10@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert%}
+
+{% block title %} Login - Smartcity {% endblock %}
+
+{% block body %}
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div style="border: 4px solid #96031A"></div>
+                        <div class="card bg-white shadow-lg" style="border-top-left-radius: 0px; border-top-right-radius: 0px">
+                            <div class="card-body pb-5 px-5 pt-3">
+                                <form id="form" class="mb-3 mt-md-4" method="POST" novalidate>
+                                    <p><a class="mb-5 mt-1 text-decoration-none text-dark" href="{{ url_for("home.index") }}"><i class="las la-angle-double-left pb-1" style="font-size: 18px;"></i>Go back</a></p>
+                                    <i class="las la-city" style="font-size: 36px"></i><b style="font-size: 32px; margin-left: 10px">SMARTCITY</b>
+                                    <p class="mt-3 mb-4 mt-1">Please enter your login and password!</p>
+                                    {# CSRF Token #}
+                                    {{ form.csrf_token() }}
+                                    <div id="csrf_token_error" class="text-danger"></div>
+                                    {# Form fields #}
+                                    <div class="mb-3">
+                                        {{ render_text_field(form.email) }}
+                                    </div>
+                                    <div class="mb-3">
+                                        {{ render_text_field(form.password) }}
+                                    </div>
+                                    <div class="my-3">
+                                        {{ render_boolean_field(form.remember) }}
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-outline-dark" type="submit">Login</button>
+                                    </div>
+                                </form>
+                                <div>
+                                  <p class="mb-0  text-center">Don't have an account? <a href="{{ url_for("auth.signup") }}" class="fw-bold" style="color: #96031A">Sign Up</a></p>
+                                </div>
+                                <div id="alerts" class="mt-3"></div>
+                                <div id="success-message" style="display: none;"></div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+// Force email keyboard on mobile devices
+let x = document.getElementById("email");
+x.type = "email";
+// Get form elements by IDs
+const form = document.getElementById("form")
+const successMessage = document.getElementById("success-message");
+const alerts = document.getElementById("alerts");
+const fields = {
+    csrf_token: {
+        input: document.getElementById('csrf_token'),
+        error: document.getElementById('csrf_token-error')
+    },
+    email: {
+        input: document.getElementById('email'),
+        error: document.getElementById('email-error')
+    },
+    password: {
+        input: document.getElementById('password'),
+        error: document.getElementById('password-error')
+    },
+    remember: {
+        input: document.getElementById('remember'),
+        error: document.getElementById('remember-error')
+    }
+}
+
+// React to form submission
+form.addEventListener("submit", async (e) => {
+   e.preventDefault();
+   // Make JSON out of the form input value
+   let data = JSON.stringify({
+       csrf_token: fields.csrf_token.input.value,
+       email: fields.email.input.value,
+       password: fields.password.input.value,
+       remember: fields.remember.input.value,
+   });
+   data["remember"] = (data["remember"] === "y");
+
+   // First async request to the normal view
+   const response = await fetch("{{ url_for("auth.login") }}", {
+       method: "POST",
+       headers: {
+           "Content-Type": "application/json"
+       },
+       body: data,
+   });
+   // Remove all present error messages
+   for (let key in fields) {
+       if (fields[key].input.classList.contains("is-invalid")) {
+           fields[key].input.classList.remove("is-invalid");
+           fields[key].error.innerText = "";
+       }
+   }
+   // React to form validation response
+   if (response.ok) {
+       // Send second async request to the API
+       const api_response = await fetch("{{ url_for("api.auth_api.login") }}", {
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json"
+           },
+           body: data,
+       });
+
+       // React to API response
+       if (api_response.ok) {
+           const message = await api_response.json();
+           window.location.assign(message["location"])
+       } else {
+           const message = await api_response.json();
+           alerts.innerHTML = bootstrap_alert_macro(message["message"], "danger")
+       }
+   } else {
+       // Put errors from WTForms validation to form inputs
+       const errors = await response.json();
+       Object.keys(errors).forEach((key) => {
+           fields[key].input.classList.add("is-invalid");
+           fields[key].error.innerText = errors[key][0];
+       });
+   }
+});
+
+</script>
+{% endblock %}

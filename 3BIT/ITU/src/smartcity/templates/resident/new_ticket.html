@@ -1,0 +1,173 @@
+<!--
+File containing new tickets
+
+@author: David Novák
+@email: xnovak2r@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert %}
+
+{% block title %} New ticket {% endblock %}
+
+{% block content %}
+    <div class="vh-75 d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="card bg-white shadow-lg" style="border-radius: 0">
+                        <div class="card-body p-5">
+                            <form id="form" class="mb-3 mt-md-4" method="POST" enctype="multipart/form-data" novalidate>
+                                <i class="las la-city" style="font-size: 36px"></i><b
+                                    style="font-size: 32px; margin-left: 10px">SMARTCITY</b>
+                                <p class="mt-3 mb-4 mt-1">Create new ticket!</p>
+                                {# CSRF Token #}
+                                {{ form.csrf_token() }}
+                                <div id="csrf_token_error" class="text-danger"></div>
+                                {# Form fields #}
+                                <input hidden type="number" value="{{ current_user.id }}" id="reporter_id">
+                                <div class="mb-3">
+                                    <label class="form-label" for="name">Type</label>
+                                    <select class="form-select" id="name">
+                                        <option value="Traffic Signs">Traffic Signs</option>
+                                        <option value="Lighting">Lighting</option>
+                                        <option value="Wreck">Wreck</option>
+                                        <option value="Greenery">Greenery</option>
+                                        <option value="Dump/Garbage">Dump/Garbage</option>
+                                        <option value="Bench/Railing/Fence">Bench/Railing/Fence</option>
+                                        <option value="Public Transport">Public Transport</option>
+                                        <option value="Road">Road</option>
+                                        <option value="Sidewalk">Sidewalk</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    {{ render_text_field(form.description) }}
+                                </div>
+                                <div class="mb-3">
+                                    <label for="upload_image" class="form-label">Image</label> <br>
+                                    <input type="file" class="form-control form-control-sm" id="upload_image"
+                                           accept="image/*"/>
+                                </div>
+
+                                <input hidden id="latitude" type="number" name="latitude" value="-1000">
+                                <input hidden id="longitude" type="number" name="longitude" value="-1000">
+                                <div class="mb-3 mt-4">
+                                    <label class="form-label">Location</label> <br>
+                                    <a id="map-my-location" class="btn btn-dark w-100 mb-2">Report defect on my
+                                        location</a>
+                                    <div class="card">
+                                        <div class="card-header" id="new-ticket-location">
+                                            Please move the marker to the correct location.
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div class="w-100" style="height: 380px" id="new-ticket-map"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid mt-5">
+                                    <button class="btn btn-outline-dark" type="submit">Create new ticket</button>
+                                </div>
+                            </form>
+                            <div id="alerts" class="mt-3"></div>
+                            <div id="success-message"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+        const form = document.getElementById("form")
+        const successMessage = document.getElementById("success-message");
+        const alerts = document.getElementById("alerts");
+        let img = "";
+        document.querySelector('#upload_image').addEventListener('change', function () {
+            const reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.addEventListener("load", () => {
+                img = reader.result;
+            })
+        })
+        const fields = {
+            csrf_token: {
+                input: document.getElementById('csrf_token'),
+                error: document.getElementById('csrf_token-error')
+            },
+            reporter_id: {
+                input: document.getElementById('reporter_id'),
+                error: document.getElementById('reporter_id-error')
+            },
+            name: {
+                input: document.getElementById('name'),
+                error: document.getElementById('name-error')
+            },
+            description: {
+                input: document.getElementById('description'),
+                error: document.getElementById('description-error')
+            },
+        }
+        const hidden_fields = {
+            latitude: {
+                input: document.getElementById('latitude'),
+            },
+            longitude: {
+                input: document.getElementById('longitude'),
+            },
+        }
+        // React to form submission
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            // Make JSON out of the form input value
+            let data = JSON.stringify({
+                csrf_token: fields.csrf_token.input.value,
+                reporter_id: fields.reporter_id.input.value,
+                name: fields.name.input.value,
+                description: fields.description.input.value,
+                latitude: hidden_fields.latitude.input.value,
+                longitude: hidden_fields.longitude.input.value,
+                image: img,
+            });
+            const response = await fetch("{{ url_for("resident.new_ticket") }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: data,
+            });
+            for (let key in fields) {
+                if (fields[key].input.classList.contains("is-invalid")) {
+                    fields[key].input.classList.remove("is-invalid");
+                    fields[key].error.innerText = "";
+                }
+            }
+            if (response.ok) {
+                const api_response = await fetch("{{ url_for("api.auth_api.create_new_ticket") }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: data,
+                });
+
+                if (api_response.ok) {
+                    window.location.assign("{{ url_for("resident.my_tickets") }}")
+                } else {
+                    const message = await api_response.json();
+                    alerts.innerHTML = bootstrap_alert_macro(message["message"], "danger")
+                }
+            } else {
+                const errors = await response.json();
+                Object.keys(errors).forEach((key) => {
+                    fields[key].input.classList.add("is-invalid");
+                    fields[key].error.innerText = errors[key][0];
+                });
+            }
+        });
+    </script>
+{% endblock %}

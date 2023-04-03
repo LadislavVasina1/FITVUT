@@ -1,0 +1,131 @@
+<!--
+File containing main page view
+
+@author: Dominik Vágner
+@email: xvagne10@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+        <div data-bs-spy="scroll" data-bs-target="#navbar-main" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example p-3 rounded-2" tabindex="0">
+            <div id="myCarousel" class="carousel mb-4" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../../static/img/smartcity-home-landing.jpg" class="image-fluid d-inline-block w-100" style="height: 400px; object-fit: cover">
+                        <div class="container">
+                            <div class="carousel-caption text-start">
+                                <h1 id="scrollspyHeading1" >CITY DEFECT REPORTER</h1>
+                                <p>System for reporting defect in the city to authorities.</p>
+                                {% if not current_user.is_authenticated %}
+                                    <p><a class="btn btn-lg btn-primary" href="{{ url_for("auth.signup") }}" style="background-color: #96031A; border-color: #96031A;">Sign-Up</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="my-4" style="display: table; border-bottom: 5px solid #96031A;">It couldn't be any simpler:</h1>
+            <div class="row text-center mt-4 mb-5">
+                <div class="col-lg-4 my-3">
+                    <h2 class="mb-3 mt-2"><span class="badge bg-home me-2" style="background-color: #96031A">1.</span> Discover a defect.</h2>
+                    <img src="../../static/img/High-Importance.svg" width="100" height="100">
+                </div>
+                <div class="col-lg-4 my-3">
+                    <h2 class="mb-3 mt-2"><span class="badge bg-home me-2" style="background-color: #96031A">2.</span> Report it to us.</h2>
+                    <img src="../../static/img/Request-Service.svg" width="100" height="100">
+                </div>
+                <div class="col-lg-4 my-3">
+                    <h2 class="mb-3 mt-2"><span class="badge bg-home me-2" style="background-color: #96031A">3.</span> We will fix it!</h2>
+                    <img src="../../static/img/Checked-Checkbox.svg" width="100" height="100">
+                </div>
+            </div>
+            {% if not current_user.is_authenticated %}
+                <h3>Only thing left is to <a href="{{ url_for("auth.signup") }}" style="color: #96031A;">sign-up</a> yourself, so what are you waiting for?</h3>
+            {% endif %}
+
+            <div class="text-start my-4 px-3 py-1 border-top border-bottom">
+                <h1  id="scrollspyHeading2" class="my-4" style="display: table; border-bottom: 5px solid #96031A;">FAQ:</h1>
+                <div class="accordion mb-4" id="accordionFAQ">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                What's needed to make report?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                            <div class="accordion-body">
+                                You need to make an account and have a photo of the defect.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Do I have to have proof of the defect?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                            <div class="accordion-body">
+                                Each report requires only a single photo and a few words.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Can I see updates for reported defects?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+                            <div class="accordion-body">
+                                Yes, you have a tab for all defects reported by you and you can also view a map showing all the reported defects.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-start my-4 px-3 py-1">
+                <h1 id="scrollspyHeading3" class="my-4" style="display: table; border-bottom: 5px solid #96031A;">Contact:</h1>
+                <p>If you have any other questions, feel free to contact us.</p>
+                <div class="row text-start mt-4 mb-5">
+                    <div class="col-lg-6 my-3">
+                        <h2 class="mb-3 mt-2" style="color: #96031A">Contact details:</h2>
+                        <div class="container">
+                            <div class="row">
+                                <p class="fw-bold">SmartCity Information Centre</p>
+                                <p>Street Name</p>
+                                <p>542 011, City</p>
+                                <p><strong>Tel:</strong> 123 456 789</p>
+                                <p><strong>E-mail:</strong> info@sc.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 my-3">
+                        <h2 class="mb-3 mt-2" style="color: #96031A">Operating hours:</h2>
+                        <div class="container">
+                            <div class="row ps-9">
+                                <div class="col-3 text-start">
+                                    <p class="fw-bold">Mon</p>
+                                    <p class="fw-bold">Tue</p>
+                                    <p class="fw-bold">Wed</p>
+                                    <p class="fw-bold">Thu</p>
+                                    <p class="fw-bold">Fri</p>
+                                </div>
+                                <div class="col-9 text-start">
+                                    <p>8:00 - 11:00, 12:00 - 17:00</p>
+                                    <p>8:00 - 11:00, 12:00 - 15:30</p>
+                                    <p>8:00 - 11:00, 12:00 - 17:00</p>
+                                    <p>8:00 - 11:00, 12:00 - 15:30</p>
+                                    <p>8:00 - 11:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

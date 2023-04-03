@@ -1,0 +1,96 @@
+<!--
+File containing user's tickets
+
+@author: David Novák
+@email: xnovak2r@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert %}
+
+{% block title %} My tickets {% endblock %}
+
+{% block content %}
+    {% if not tickets %}
+        <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-center align-items-center mt-3 mb-4">
+                <b>YOU HAVE NOT CREATED ANY TICKETS</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-center align-items-center mt-3 mb-5">
+                <a class="btn btn-outline-dark col-6" href="{{url_for("resident.new_ticket") }}">CREATE TICKET</a>
+            </div>
+        </div>
+        </div>
+    {% else %}
+    {% for ticket in tickets %}
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <div class="card col-10 {{ ticket.state.value }}" style="max-width: 1000px;">
+                <div class="row g-0">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <img
+                                {% if ticket.image_path != None %}
+                                    src="{{ ticket.image_path }}"
+                                {% else %}
+                                    src="/static/images/No_image_available.svg.png"
+                                {% endif %}
+                                    class="img-fluid rounded-start"
+                                    alt="{{ ticket.image_path }}"
+                                    style="height: 200px; object-fit: fill;"
+                        >
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 class="card-title"><b>{{ ticket.name }}</b></h5>
+                                    <p class="card-text">{{ ticket.description[:120] }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="state btn p-2 mt-1 mb-3" type="button"
+                                            style="float:right; pointer-events: none;">{{ ticket.state.value }}</button>
+                                    <p class="card-text" style="float:right;">{{ ticket.created_at }}</p>
+                                    <a class="btn p-2 mt-1 btn-secondary" type="button"
+                                       style="float:right; width: 146px;" data-bs-target="#ticket{{ ticket.id }}"
+                                       href="{{ url_for("resident.ticket_view") }}?ticketID={{ ticket.id }}">
+                                        <b>Details</b>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        let statesList = document.getElementsByClassName("state");
+
+        for (let i = 0; i < statesList.length; i++) {
+            statesList[i].style.fontWeight = "bold";
+            if (statesList[i].innerHTML === "New") {
+                statesList[i].style.color = "white";
+                statesList[i].style.width = "146px";
+                statesList[i].classList.add("btn-danger");
+            } else if (statesList[i].innerHTML === "Planned") {
+                statesList[i].style.color = "black";
+                statesList[i].style.width = "146px";
+                statesList[i].classList.add("btn-info");
+            } else if (statesList[i].innerHTML === "Work In Progress") {
+                statesList[i].style.color = "black";
+                statesList[i].classList.add("btn-warning");
+            } else if (statesList[i].innerHTML === "Done") {
+                statesList[i].style.color = "white";
+                statesList[i].style.width = "146px";
+                statesList[i].classList.add("btn-success");
+            }
+        }
+    </script>
+{% endblock %}
+

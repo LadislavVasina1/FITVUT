@@ -1,0 +1,72 @@
+<!--
+Map of tickets
+
+@author: Dominik Vágner
+@email: xvagne10@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert %}
+
+{% block title %} Map of tickets {% endblock %}
+
+{% block content %}
+    <div class="vh-75 d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="mb-4 col-10">
+                    <label for="filterStates"><h4>State of tickets you want to be shown</h4></label>
+                    <select class="form-select mt-2" aria-label="State-filter" id="filterStates">
+                        <option value="All states" selected>All states</option>
+                        <option value="New">New</option>
+                        <option value="Planned">Planned</option>
+                        <option value="WorkInProgress">Work in progress</option>
+                        <option value="Done">Done</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-10 ">
+                    <div class="card min-vh-100">
+                        <div class="card-body" id="map-of-tickets"></div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(function () {
+            $('#filterStates').change(function () {
+                if ($('#filterStates').val() == 'All states') {
+                    $('.marker-new').show();
+                    $('.marker-wip').show();
+                    $('.marker-planned').show();
+                    $('.marker-done').show();
+                } else if ($('#filterStates').val() == 'New') {
+                    $('.marker-new').show();
+                    $('.marker-wip').hide();
+                    $('.marker-planned').hide();
+                    $('.marker-done').hide();
+                } else if ($('#filterStates').val() == 'Planned') {
+                    $('.marker-new').hide();
+                    $('.marker-wip').hide();
+                    $('.marker-planned').show();
+                    $('.marker-done').hide();
+                } else if ($('#filterStates').val() == 'WorkInProgress') {
+                    $('.marker-new').hide();
+                    $('.marker-wip').show();
+                    $('.marker-planned').hide();
+                    $('.marker-done').hide();
+                } else if ($('#filterStates').val() == 'Done') {
+                    $('.marker-new').hide();
+                    $('.marker-wip').hide();
+                    $('.marker-planned').hide();
+                    $('.marker-done').show();
+                }
+            });
+        });
+    </script>
+{% endblock %}
