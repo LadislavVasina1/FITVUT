@@ -1,0 +1,485 @@
+<!--
+File containing teask view for technician
+
+@author: David Novák
+@email: xnovak2r@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert %}
+
+{% block title %} Task {{ task[0].name }} {% endblock %}
+{% block css %}
+    <style>
+        /* Style the Image Used to Trigger the Modal */
+        /* Taken from: https://www.w3schools.com/howto/howto_css_modal_images.asp */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+
+        /* Nicer scrollbar */
+        /* width */
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: grey;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #040000;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+    {#------ Ticket -> top-center ------#}
+    {% for t in ticket %}
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01" src="{{ t.image_path }}">
+        </div>
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <div class="card" style="max-width: 1300px; min-width: 700px;">
+                <div class="row g-0">
+                    <div class="card-header">
+                        <h5 class="card-title"><b>{{ t.name }}</b> - ticket #{{ t.id }}</h5>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body">
+                            <p class="card-text">{{ t.description }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column col-md-2">
+                        <div class="p-2">
+                            <button class="state btn" style="width: 100px; pointer-events: none">{{ t.state.value }}</button>
+                        </div>
+                        <div class="py-2">
+                            <b>{{ t.created_at.year }}-{{ t.created_at.month }}-{{ t.created_at.day }}</b>
+                        </div>
+                        <div class="p-2">
+                            {% if t.image_path != None %}
+                                <input type="button" value="Image" class="btn btn-secondary"
+                                       id="img_button" style="position: relative; width: 100px;"/>
+                            {% else %}
+                                <input type="button" value="No image" class="btn btn-secondary"
+                                       id="img_button" style="position: relative; width: 100px;" disabled/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br>
+    <div class="container">
+        <div class="row g-4">
+
+            {#------ Task -> bottom-left ------#}
+            {% for tk in task %}
+                <div class="col-xl-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Service task <b>{{ tk.name }}</b>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-1">
+                                <div class="col">
+                                    <div class="card">
+                                        <form id="form" method="POST">
+                                            <fieldset id="fieldset">
+                                                {# CSRF Token #}
+                                                {{ form.csrf_token() }}
+                                                <div id="csrf_token_error" class="text-danger"></div>
+                                                {# Form fields #}
+                                                <div class="input-group mb-3 p-1">
+                                                    <span class="input-group-text" id="basic-addon1">Set cost:</span>
+                                                    <input id="cost" class="form-control" type="number" min="0"
+                                                           step="10" value="{{ tk.cost }}" required>
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <div class="input-group mb-3 p-1">
+                                                    <span class="input-group-text"
+                                                          id="basic-addon2">Set man-hours:</span>
+                                                    <input id="man_hours" class="form-control" type="number" min="0"
+                                                           step="1" value="{{ tk.man_hours }}" required>
+                                                </div>
+                                                <div class="input-group mb-3 p-1">
+                                                    <span class="input-group-text"
+                                                          id="basic-addon3">Completed by:</span>
+                                                    {% if tk.days_to_complete == none %}
+                                                        <input id="completion" class="form-control"
+{#                                                               value="{{ Date().toISOString().split("T")[0] }}"#}
+                                                               type="date">
+                                                    {% else %}
+                                                        <input id="completion" class="form-control"
+                                                               value="{{ tk.days_to_complete }}" type="date">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="input-group mb-3 p-1">
+                                                    <span class="input-group-text" id="basic-addon1">Set state:</span>
+                                                    <select class="form-select" id="task_state">
+                                                        <option id="New" value="New">New</option>
+                                                        <option id="Planned" value="Planned">Planned</option>
+                                                        <option id="Work In Progress" value="Work In Progress">Work In
+                                                            Progress
+                                                        </option>
+                                                        <option id="Done" value="Done">Done</option>
+                                                    </select>
+                                                </div>
+                                                <hr>
+                                                <div class="d-grid p-1">
+                                                    <button class="btn btn-outline-dark" type="submit">Update task
+                                                    </button>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <form>
+                                            <div class="input-group mb-3 p-1">
+                                                <span class="input-group-text">Cost:</span>
+                                                <input class="form-control" type="number" value="{{ tk.cost }}"
+                                                       disabled>
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <div class="input-group mb-3 p-1">
+                                                <span class="input-group-text">Man-hours:</span>
+                                                <input class="form-control" type="number" value="{{ tk.man_hours }}"
+                                                       disabled>
+                                            </div>
+                                            <div class="input-group mb-3 p-1">
+                                                <span class="input-group-text"
+                                                      id="basic-addon3">Planned completion:</span>
+                                                {% if tk.days_to_complete == none %}
+                                                    <input class="form-control" value="No estimate" disabled>
+                                                {% else %}
+                                                    <input class="form-control"
+                                                           value={{ tk.days_to_complete }} disabled>
+                                                {% endif %}
+                                            </div>
+                                            <div class="input-group mb-3 p-1">
+                                                <span class="input-group-text" id="basic-addon1">State:</span>
+                                                <input class="form-control" value="{{ tk.state.value }}" disabled>
+                                            </div>
+                                            <hr>
+                                            <div class="d-grid p-1">
+                                                <button class="btn btn-secondary" type="submit" disabled>Currently
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <b>Task description</b>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ tk.description }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div id="task-view-map" style="height: 400px; z-index: 0;"></div>
+                                <p style="display: none" id="latitude">{{ t.latitude }}</p>
+                                <p style="display: none" id="longitude">{{ t.longitude }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {#------ Comments -> bottom-right ------#}
+                <div class="col-xl-6 mb-4" style="max-height: 1000px; min-height: 500px;">
+                    <div class="card mb-4" style="height: 60%">
+                        <div class="card-body pt-0 px-0 h-50">
+                            <div class="card-header">
+                                Comments for <b>{{ tk.name }}</b>
+                            </div>
+                            <div class="card-body overflow-auto" style="height:90%" id="commentCardBody">
+                                {#------ Individual comments ------#}
+                                {% for c in comments %}
+                                    <div class="card mt-2">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <b>{{ all_users[c.commenter_id - 1].fullname }}</b>
+                                                    <p class="m-0">{{ c.created_at }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{ c.content }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {#------ Submit comment ------#}
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <form id="commentForm">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control mt-1" id="commentTextField"
+                                                   placeholder="Type your comment" required>
+                                            <button type="submit" class="btn btn-primary mt-1 mb-3 col-12"/>
+                                            Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        {# --------- Misc ---------- #}
+        let roles = {
+            technician: "technician",
+            manager: "manager",
+        }
+        let role = roles.{{ current_user.role[0] }};
+        if (role != "technician")
+            document.getElementById("fieldset").setAttribute("disabled", "disabled");
+
+        {#document.getElementById("completion").valueAsDate = new Date();#}
+        document.getElementById("completion").min = new Date().toISOString().split("T")[0];
+
+        document.getElementById("{{ task[0].state.value }}").setAttribute("selected", "selected")
+
+        {# --------- Image ---------- #}
+        const modal = document.getElementById("myModal");
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        const btn = document.getElementById("img_button");
+        const modalImg = document.getElementById("img01");
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // Get the <span> element that closes the modal
+        const span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        modal.onclick = function () {
+            modal.style.display = "none";
+        }
+
+
+        {# --------- States ---------- #}
+        let statesList = document.getElementsByClassName("state");
+
+        for (let i = 0; i < statesList.length; i++) {
+            statesList[i].style.fontWeight = "bold";
+            if (statesList[i].innerHTML === "New") {
+                statesList[i].style.color = "white";
+                statesList[i].classList.add("btn-danger");
+            } else if (statesList[i].innerHTML === "Planned") {
+                statesList[i].style.color = "black";
+                statesList[i].classList.add("btn-info");
+            } else if (statesList[i].innerHTML === "Work In Progress") {
+                statesList[i].style.color = "black";
+                statesList[i].classList.add("btn-warning");
+            } else if (statesList[i].innerHTML === "Done") {
+                statesList[i].style.color = "white";
+                statesList[i].classList.add("btn-success");
+            }
+        }
+
+        {# --------- Comments ---------- #}
+        const commentCardBody = document.getElementById("commentCardBody");
+        commentCardBody.scrollTop = commentCardBody.scrollHeight;
+
+        $("#commentForm").submit(function (e) {
+            e.preventDefault();
+            let content = $("#commentTextField").val();
+            let currentTaskId = {{ task[0].id }};
+            let currentUserId = {{ current_user.id }};
+            // Convert to mysql datetime format
+            let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            $.ajax({
+                type: 'POST',
+                url: '{{ url_for("api.auth_api.add_task_comment") }}',
+                data: JSON.stringify({
+                    content: content,
+                    created_at: now,
+                    service_task_id: currentTaskId,
+                    commenter_id: currentUserId
+                }),
+                success: function (response) {
+                    console.log(response);
+                    let commentToAppend = ' <!-- START of the individual comment card-->\
+                                    <div class="card mt-2">\
+                                        <div class="card-header">\
+                                            <div class="row">\
+                                                <div class="col-12">\
+                                                    <b>{{ current_user.fullname }}</b>\
+                                                    <p class="m-0">' + now + '</p>\
+                                                </div>\
+                                        </div>\
+                                        </div>\
+                                        <div class="card-body">\
+                                            <p class="card-text">' + content + '</p>\
+                                        </div>\
+                                    </div>\
+                                     <!-- END of the individual comment card-->';
+                    $("#commentCardBody").append(commentToAppend);
+                    commentCardBody.scrollTop = commentCardBody.scrollHeight;
+                    $("#commentTextField").val("");
+                },
+                error: function (response) {
+                    console.log(response);
+                },
+                dataType: "json",
+                contentType: "application/json"
+            });
+        });
+
+        {# --------- Form ---------- #}
+        const form = document.getElementById("form")
+        const successMessage = document.getElementById("success-message");
+        const alerts = document.getElementById("alerts");
+        const fields = {
+            csrf_token: {
+                input: document.getElementById('csrf_token'),
+                error: document.getElementById('csrf_token-error')
+            },
+            cost: {
+                input: document.getElementById('cost'),
+                error: document.getElementById('cost-error')
+            },
+            man_hours: {
+                input: document.getElementById('man_hours'),
+                error: document.getElementById('man_hours-error')
+            },
+            completion: {
+                input: document.getElementById('completion'),
+                error: document.getElementById('completion-error')
+            },
+            task_state: {
+                input: document.getElementById('task_state'),
+                error: document.getElementById('task_state-error')
+            },
+        }
+
+
+        // React to form submission
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            // Make JSON out of the form input value
+            let data = JSON.stringify({
+                csrf_token: fields.csrf_token.input.value,
+                cost: fields.cost.input.value,
+                man_hours: fields.man_hours.input.value,
+                completion: fields.completion.input.value,
+                task_state: fields.task_state.input.value,
+                id: {{ task[0].id }},
+            });
+            const response = await fetch("{{ url_for("technician.task_view") }}?taskID={{ task[0].id }}&&parent={{ task[0].parent_ticket }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: data,
+            });
+            for (let key in fields) {
+                if (fields[key].input.classList.contains("is-invalid")) {
+                    fields[key].input.classList.remove("is-invalid");
+                    fields[key].error.innerText = "";
+                }
+            }
+            if (response.ok) {
+                const api_response = await fetch("{{ url_for("api.auth_api.update_service_task") }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: data,
+                });
+
+                if (api_response.ok) {
+                    window.location.assign("{{ url_for("technician.task_view") }}?taskID={{ task[0].id }}&&parent={{ task[0].parent_ticket }}")
+                } else {
+                    const message = await api_response.json();
+                    alerts.innerHTML = bootstrap_alert_macro(message["message"], "danger")
+                }
+            } else {
+                const errors = await response.json();
+                Object.keys(errors).forEach((key) => {
+                    fields[key].input.classList.add("is-invalid");
+                    fields[key].error.innerText = errors[key][0];
+                });
+            }
+        });
+    </script>
+{% endblock %}

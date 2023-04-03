@@ -1,0 +1,99 @@
+<!--
+File containing techician's tasks
+
+@author: David Novák
+@email: xnovak2r@stud.fit.vutbr.cz
+-->
+
+{% extends "layout.html" %}
+{% from "macros/fields.html" import render_text_field, render_boolean_field, render_alert %}
+
+{% block title %} Assigned Tasks {% endblock %}
+
+{% block content %}
+    <div class="row justify-content-end align-items-center" style="position: relative; right: 10%">
+        <div class="col-sm-3 py-3">
+            <input value="Hide completed tasks" class="btn btn-primary" type="button" id="hide" onclick="func()"/>
+        </div>
+    </div>
+    <br>
+    {% for task in service_tasks %}
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <div class="card col-10 {{ task.state.value }}" style="max-width: 1000px; min-height: 100px;">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h4><b>{{ task.name }}</b></h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="{{ url_for("technician.task_view") }}?taskID={{ task.id }}&&parent={{ task.parent_ticket }}"
+                               class="btn btn-secondary float-end" role="button" style="width: 110px;">View task</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-0" style="min-height: 100px;">
+                    <div class="col-sm-4 col-lg-7 mx-3 mt-1">
+                        <p class="card-text">{{ task.description[:140] }}</p>
+                    </div>
+                    <div class="col-sm-0 col-lg-1"></div>
+                    <div class="col-sm-4 col-lg-2 align-self-center">
+                        For ticket <b>#{{ task.parent_ticket }}</b>
+                        <br>
+                        {% if task.days_to_complete != None %}
+                            Done by <b>{{ task.days_to_complete }}</b>
+                        {% else %}
+                            No estimate
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-4 col-lg-1 mx-2 align-self-center">
+                        <button class="state btn" style="pointer-events: none">{{ task.state.value }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        function func() {
+            if (document.getElementById("hide").value == "Hide completed tasks") {
+                $('.Work in progress').show();
+                $('.Planned').show();
+                $('.Done').hide();
+                document.getElementById("hide").value = "Show completed tasks";
+            } else {
+                $('.Work in progress').show();
+                $('.Planned').show();
+                $('.Done').show();
+                document.getElementById("hide").value = "Hide completed tasks";
+            }
+        }
+
+        let statesList = document.getElementsByClassName("state");
+
+        for (let i = 0; i < statesList.length; i++) {
+            statesList[i].style.fontWeight = "bold";
+            if (statesList[i].innerHTML === "New") {
+                statesList[i].style.color = "white";
+                statesList[i].style.width = "110px";
+                statesList[i].classList.add("btn-danger");
+            } else if (statesList[i].innerHTML === "Planned") {
+                statesList[i].style.color = "black";
+                statesList[i].style.width = "110px";
+                statesList[i].classList.add("btn-info");
+            } else if (statesList[i].innerHTML === "Work In Progress") {
+                statesList[i].style.color = "black";
+                statesList[i].style.width = "110px";
+                statesList[i].classList.add("btn-warning");
+            } else if (statesList[i].innerHTML === "Done") {
+                statesList[i].style.color = "white";
+                statesList[i].style.width = "110px";
+                statesList[i].classList.add("btn-success");
+            }
+        }
+
+        window.onload = func();
+    </script>
+{% endblock %}

@@ -1,0 +1,94 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Chytré město</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Dominik Vágner <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xvagne10@stud.fit.vutbr.cz">xvagne10@stud.fit.vutbr.cz</a> -
+		návrh DB, sestrojení api, login, registrace, domovská stránka, mapy, nasazení aplikace
+	</dd>
+	<dd>Ladislav Vašina <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xvasin11@stud.fit.vutbr.cz">xvasin11@stud.fit.vutbr.cz</a> -
+		návrh DB, doplnění api, administrátorské stránky (editace uživatelů, vytváření správce města),
+        stránky správce města (vytváření servisních požadavků, vytváření servisních techniků, správa tiketů), uživatelský profil (úprava údajů, změna hesla)
+	</dd>
+  <dd>David Novák <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xnovak2r@stud.fit.vutbr.cz">xnovak2r@stud.fit.vutbr.cz</a> -
+		návrh DB, doplnění api, nahlašování závad, stránky servisního technika (doplňování servisních požadavků)
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="https://smartcity-vut.herokuapp.com/">https://smartcity-vut.herokuapp.com/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin@sc.com</td><td>password</td><td>Administrátor</td></tr>
+<tr><td>manager@sc.com</td><td>password</td><td>Manager</td></tr>
+<tr><td>technician@sc.com</td><td>password</td><td>Servisní technik</td></tr>
+<tr><td>resident@sc.com</td><td>password</td><td>Registrovaný uživatel</td></tr>
+</table>
+
+<h3>Video</h3>
+<a href="https://www.youtube.com/watch?v=h5_5KmbsLcA">https://www.youtube.com/watch?v=h5_5KmbsLcA</a>
+
+<h2>Implementace</h2>
+<h5>Použité techologie:</h5>
+<p>
+    Backend aplikace je vytvořen v Python frameworku Flask.
+    Pro frontend byly použity technologie/frameworky Javascript (jQuery), HTML, CSS, Jinja, Bootstrap.
+    K zobrazení map se použilo veřejné neplacené API od <a href="https://api.mapy.cz/">mapy.cz</a>.
+</p>
+<h5>Popis adresáře s kódem:</h5>
+<ul>
+    <li>smartcity</li>
+        <ul>
+            <li>static/ = Složka se statickými částmi aplikace jako dedikované CSS, Javascript soubory a fotky.</li>
+            <li>templates/ = Složka obsahující všechny HTML soubory, které hojně využívají šablonovacího jazyku Jinja. V nich je také vložený Javascript zpracovávající jednotlivé formuláře.</li>
+            <li>views/ = Python implementace API, soubory které definují routes a formuláře pro každého možného uživatele.</li>
+            <li>app.py = Inicializace aplikace, načtení proměnných prostředí, prvotní naplnění datábaze, propojení funkcionality.</li>
+            <li>extensions.py = Inicializace některých z knihoven.</li>
+            <li>models.py = Definice modelu aplikace. Namapování databáze na Python objekty pomocí knihovny SQLAlchemy a metody pro dané třídy.</li>
+        </ul>
+</ul>
+
+
+<h3>Databáze</h3>
+<img src="https://i.imgur.com/OrEmDXi.png" alt="Databazove schema. Obrazek je nahran zde-> https://i.imgur.com/OrEmDXi.png" >
+
+<h2>Instalace</h2>
+Nejdříve je nutné si lokálně nainstalovat MySQL server a vytvořit databázi s názvem <i>smartcity</i>.<br>
+Následně je nutné vytvořit(změnit) soubor <i>.env</i>.<br> V něm je nutné změnit proměnnou <i>DATABASE_URI</i>, aby odpovídala lokálnímu nastavení MySQL serveru.
+Dále provedeme následující příkazy:
+<ul>
+<li>virtualenv venv</li>
+<li>source venv/bin/activate</li>
+<li>pip install -r requirements.txt</li>
+<li>flask run --host=0.0.0.0</li>
+</ul>
+Stránka by následně měla lokálně běžet na adrese <a href="http://127.0.0.1:5000/"><i>http://127.0.0.1:5000/</i></a> <br>(kdyby ne, viz výstup terminálu po spuštění příkazu <i>flask run --host=0.0.0.0 </i>)
+
+<h2>Známé problémy</h2>
+<p>ŽÁDNÉ</p>
+<p>Vše co je uvedeno v zadání bylo implementováno.</p>
+
+</body>
+</html>
