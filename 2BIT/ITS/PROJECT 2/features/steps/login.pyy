@@ -1,0 +1,27 @@
+from behave import *
+from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
+
+@given(u'User is logged out')
+def step_impl(context):
+    pass
+
+
+@when(u'User logs in')
+def step_impl(context):
+    #print(dir(context))
+    context.driver.get("http://localhost:8080/repo")
+    context.driver.set_window_size(1920, 1080)
+    context.driver.find_element(By.ID, "personaltools-login").click()
+    context.driver.find_element(By.ID, "__ac_name").click()
+    context.driver.find_element(By.ID, "__ac_name").send_keys("itsadmin")
+    context.driver.find_element(By.ID, "__ac_password").click()
+    context.driver.find_element(By.ID, "__ac_password").send_keys("itsadmin")
+    context.driver.find_element(By.ID, "buttons-login").click()
+
+
+@then(u'User can look at all content')
+def step_impl(context):
+    context.driver.get("http://localhost:8080/repo")
+    context.driver.set_window_size(1920, 1080)
+    context.driver.find_element(By.CSS_SELECTOR, "#contentview-folderContents span:nth-child(2)").click()

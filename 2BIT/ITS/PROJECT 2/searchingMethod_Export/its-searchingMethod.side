@@ -1,0 +1,40 @@
+{
+  "id": "74baf38b-17ae-478a-b7ca-935fc687b2bd",
+  "version": "2.0",
+  "name": "its-searchingMethod",
+  "url": "http://localhost:8080",
+  "tests": [{
+    "id": "bdb3ad03-a243-46fa-948d-8f2218565d13",
+    "name": "web browser is on landing page",
+    "commands": [{
+      "id": "fe0cdeab-d9fc-460b-a02e-672c598b2cb8",
+      "comment": "",
+      "command": "open",
+      "target": "/repo",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9b008227-78d5-4c21-accf-8c87a919261d",
+      "comment": "",
+      "command": "click",
+      "target": "css=img",
+      "targets": [
+        ["css=img", "css:finder"],
+        ["xpath=//img[@alt='VALU3S Repository']", "xpath:img"],
+        ["xpath=//a[@id='portal-logo']/div/img", "xpath:idRelative"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "7456d658-7b8d-40da-a982-a3c6b6c91e4f",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["bdb3ad03-a243-46fa-948d-8f2218565d13"]
+  }],
+  "urls": ["http://localhost:8080/"],
+  "plugins": []
+}
